@@ -16,12 +16,15 @@ class Produto(Base):
     nome = Column(String(40), nullable=False, index=True)
     descricao = Column(String(80),nullable=False, index=True,)
     quantidade_produto = Column(Integer, nullable=False,)
+    PRECO = Column(String, nullable=False)
     codigo_barras = Column(String(11), nullable=False, unique=True)
     categoria_id = Column(Integer, ForeignKey('categoria.id'))
 
 
+
     # representação classe
     def __repr__(self):
+        return '<Produto: nome: {} descricao: {}  quantidade_produto: {} codigo_barras: {} categoria id: {}'.format(self.nome, self.descricao, self.quantidade_produto, self.codigo_barras, self.categoria_id)
         return '<Produto: {} {} {} {} {}'.format(self.nome, self.descricao, self.quantidade_produto, self.codigo_barras, self.categoria_id)
 
     # função para salvar no banco
@@ -55,6 +58,7 @@ class Funcionario(Base):
     salario = Column(Float, nullable=False, index=False)
 
     def __repr__(self):
+        return '<Funcionario: nome: {}  cpf: {}  salario: {}  id:{}>' .format(self.nome, self.cpf, self.salario, self.id)
         return '<Funcionario: {} {} {} {}>' .format(self.nome, self.cpf, self.salario, self.id)
 
     # função para salvar no banco
@@ -93,6 +97,7 @@ class Movimentacao(Base):
 
 
     def __repr__(self):
+        return '<Movimentação: id: {} atividade: {} volume_movimentacao: {} movimentacao_funcionario: {} movimentacao_produto: {} >' .format(self.id, self.atividade, self.volume_movimentacao, self.movimentacao_funcionario, self.movimentacao_produto)
         return '<Movimentação: {} {} {} {} {} {}>' .format(self.id, self.atividade, self.volume_movimentacao, self.movimentacao_funcionario, self.movimentacao_produto)
 
     # função para salvar no banco
@@ -122,6 +127,7 @@ class Categoria(Base):
     nome_classificacao = Column(String(20), nullable=False)
 
     def __repr__(self):
+        return '<Categoria: nome_classificacao: {} id: {}>' .format(self.nome_classificacao, self.id)
         return '<Movimentação: {} {}>' .format(self.nome_classificacao, self.id)
 
     def save(self):
@@ -135,7 +141,6 @@ class Categoria(Base):
     def serialize_Categoria(self):
         dados_Categoria = {
             "id_Categoria": self.id,
-            "nome_Classificacao": self .nome_Classificacao,
         }
         return dados_Categoria
 
