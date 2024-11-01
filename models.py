@@ -25,7 +25,6 @@ class Produto(Base):
     # representação classe
     def __repr__(self):
         return '<Produto: nome: {} descricao: {}  quantidade_produto: {} codigo_barras: {} categoria id: {}'.format(self.nome, self.descricao, self.quantidade_produto, self.codigo_barras, self.categoria_id)
-        return '<Produto: {} {} {} {} {}'.format(self.nome, self.descricao, self.quantidade_produto, self.codigo_barras, self.categoria_id)
 
     # função para salvar no banco
 
@@ -44,7 +43,7 @@ class Produto(Base):
             "nome": self.nome,
             "descricao": self.descricao,
             "quantidade_produtos": self.quantidade_produto,
-            "codigo_barras": self.codigo_barras,
+
             "categoria_id": self.categoria_id
         }
         return dados_produto
@@ -141,6 +140,7 @@ class Categoria(Base):
     def serialize_Categoria(self):
         dados_Categoria = {
             "id_Categoria": self.id,
+            "nome_Classificacao": self.nome_classificacao,
         }
         return dados_Categoria
 
