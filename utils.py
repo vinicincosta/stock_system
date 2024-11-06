@@ -168,36 +168,6 @@ def deletar_funcionario():
 #     var_movimentacao_produto = select(Funcionario).where(movimentacao_produto_delete == Funcionario.nome)
 #     var_movimentacao_produto = db_session.execute(var_movimentacao_produto).scalar()
 #     var_movimentacao_produto.delete()
-def inserir_movimentacao_produto():
-    movimentacao_produto = Movimentacao_Produto(
-        produto=int(input('produto_id')),
-        movimentacao=int(input('ID')),
-    )
-
-    print(movimentacao_produto)
-    movimentacao_produto.save()
-
-
-def consultar_movimentacao_produto():
-    var_movimentacao_produto = select(Movimentacao_Produto)
-    var_movimentacao_produto = db_session.execute(var_movimentacao_produto).all()
-    print(var_movimentacao_produto)
-
-
-def atualizar_movimentacao_produto():
-    # Seleciona o item a ser alterado
-    var_movimentacao_produto = select(Movimentacao_Produto).where(str(input('Nome: ')) == Movimentacao_Produto.nome)
-    var_movimentacao_produto = db_session.execute(var_movimentacao_produto).scalar()
-    # Nova informação
-    var_movimentacao_produto.nome = str(input('Novo Nome:'))
-    var_movimentacao_produto.save()
-
-
-def deletar_movimentacao_produto():
-    movimentacao_produto_delete = input('Quem você deseja deletar?:')
-    var_movimentacao_produto = select(Funcionario).where(movimentacao_produto_delete == Funcionario.nome)
-    var_movimentacao_produto = db_session.execute(var_movimentacao_produto).scalar()
-    var_movimentacao_produto.delete()
 
 
 if __name__ == '__main__':

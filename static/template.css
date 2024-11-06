@@ -1,0 +1,256 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Facilita o controle do layout */
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Arial', sans-serif; /* Fonte limpa e moderna */
+    background-color: #f3e5f5; /* Fundo suave roxo claro */
+    color: #333; /* Cor do texto padrão */
+}
+
+a {
+    color: #7b1fa2; /* Roxo escuro para links */
+    text-decoration: none; /* Remove sublinhado padrão */
+    transition: color 0.3s; /* Transição suave para hover */
+}
+
+a:hover {
+    color: #4a148c; /* Roxo ainda mais escuro ao passar o mouse */
+    text-decoration: underline; /* Sublinha ao passar o mouse */
+}
+
+header {
+    background-color: #9575cd; /* Roxo claro para o cabeçalho */
+    padding: 20px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #ffffff; /* Texto branco para contraste */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave para destaque */
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* Coluna para garantir que o header fique no topo */
+}
+
+.wrapper {
+    display: flex;
+    flex: 1; /* Ocupa o restante da tela */
+}
+
+nav {
+    background-color: #512da8; /* Roxo profundo para o menu */
+    width: 250px; /* Largura fixa do menu */
+    height: 100vh; /* Altura total da tela */
+    position: fixed; /* Fixa o nav na lateral */
+    top: 0; /* Alinha ao topo */
+    left: 0; /* Alinha à esquerda */
+    padding-top: 20px;
+    overflow-y: auto; /* Permite rolagem se necessário */
+    display: flex;
+    flex-direction: column; /* Flexbox para distribuir os links verticalmente */
+}
+
+nav a {
+    display: block;
+    padding: 15px 20px;
+    font-size: 18px;
+    color: white; /* Texto branco no menu */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2); /* Linha separando os itens */
+    transition: background-color 0.3s; /* Transição suave */
+}
+
+nav a:hover {
+    background-color: #311b92; /* Roxo mais escuro no hover */
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    margin-left: 250px; /* Define a margem para que o conteúdo fique ao lado do nav */
+    background-color: white; /* Fundo branco para o conteúdo */
+    overflow-y: auto; /* Permite rolagem se necessário */
+}
+
+.div_bem_vindo {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #7b1fa2; /* Roxo vibrante para destaque */
+    font-family: Bahnschrift;
+}
+
+.div_bem_vindo h1 {
+    margin-bottom: 10px;
+    font-weight: bold; /* Negrito para o título */
+    font-family: Bahnschrift;
+}
+
+.div_saudacao {
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #4a4a4a; /* Tom escuro para a saudação */
+    font-family: Bahnschrift;
+}
+
+/* Estilos de formulário */
+form {
+    background: linear-gradient(135deg, rgba(139, 87, 255, 0.8), rgba(87, 0, 127, 0.8));
+    padding: 20px;
+    border-radius: 10px; /* Cantos arredondados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin-top: 20px;
+}
+
+form input,
+form select,
+form textarea {
+    width: 100%; /* Largura total */
+    padding: 10px;
+    margin: 10px 0; /* Espaçamento entre campos */
+    border: 1px solid #7b1fa2; /* Borda roxa */
+    border-radius: 5px; /* Cantos arredondados */
+}
+
+form text {
+    border-color: #4a148c; /* Roxo mais escuro ao focar no campo */
+    outline: none; /* Remove contorno padrão */
+}
+
+button {
+    background-color: #6a1b9a;
+    color: white; /* Texto branco */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s; /* Transição suave */
+}
+
+button:hover {
+    background-color: #4a148c; /* Roxo mais escuro no hover */
+}
+
+/* Estilos adicionais para imagens de animais */
+.imagem {
+    max-width: 50%;
+    height: auto; /* Mantém proporção */
+    border: 4px solid #7b1fa2; /* Borda roxa */
+    border-radius: 10px; /* Cantos arredondados */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Sombra mais forte para destacar */
+    margin: 20px auto; /* Margem em cima e embaixo, centraliza horizontalmente */
+    display: block; /* Faz a imagem ser um bloco, permitindo centralização */
+    transition: transform 0.5s; /* Transição suave ao passar o mouse */
+    text-align: center;
+}
+
+.imagem:hover {
+    transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+}
+
+.imagem img {
+    width: 100%; /* Preenche a área disponível */
+    border-radius: 10px; /* Cantos arredondados na imagem */
+}
+
+/* Estilos para ícones de casa */
+.imagem_casinha {
+    display: inline-block;
+    border-radius: 50%; /* Formato circular */
+    height: 50px;
+    width: 50px;
+    background-color: #7b1fa2; /* Fundo roxo */
+    text-align: left;
+    line-height: 50px; /* Centraliza verticalmente */
+    color: white; /* Texto branco */
+    margin-right: 20px;
+}
+
+.imagem_casinha:hover {
+    transform: scale(1.05); /* Efeito de aumento ao passar o mouse */
+}
+
+.casa {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    margin-left: 10px; /* Espaço entre ícones */
+    background-color: #512da8;
+    border-radius: 10px; /* Cantos arredondados */
+    text-align: right;
+    line-height: 50px; /* Centraliza verticalmente */
+    color: white; /* Texto branco */
+}
+
+.conteudo {
+    background: linear-gradient(135deg, rgba(139, 87, 255, 0.8), rgba(87, 0, 127, 0.8));
+    text-align: start;
+    display: inline-block;
+    width: 260px;
+    height: 274px;
+    border-radius: 15px; /* Bordas arredondadas */
+    font-size: 18px;
+    padding: 15px; /* Mantendo o padding */
+    border: 2px solid rgba(0, 0, 0, 0.5); /* Bordas com opacidade */
+    margin: 10px;
+    float: left;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidade */
+    transition: transform 0.3s; /* Transição suave para hover */
+    color: black;
+    font-family: Consolas;
+}
+
+.conteudo:hover {
+    transform: scale(1.05); /* Efeito de aumento ao passar o mouse */
+}
+
+/* Containers adicionais para seções diferentes */
+.container_dash {
+    background: linear-gradient(135deg, rgba(139, 87, 255, 0.8), rgba(87, 0, 127, 0.8));
+    text-align: start;
+    display: inline-block;
+    width: 260px;
+    height: 274px;
+    border-radius: 15px;
+    font-size: 18px;
+    padding: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    margin: 10px;
+    float: left;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+    color: black;
+    font-family: Consolas;
+}
+
+.container_dash:hover {
+    transform: scale(1.05);
+}
+
+.container_dash_consulta {
+    background: linear-gradient(135deg, #b39ddb, #9575cd);
+    text-align: start;
+    display: inline-block;
+    width: 260px;
+    height: 274px;
+    border-radius: 15px;
+    font-size: 18px;
+    padding: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    margin: 10px;
+    float: left;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+    color: black;
+    font-family: Consolas;
+}
+
+.container_dash_consulta:hover {
+    transform: scale(1.05);
+}

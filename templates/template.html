@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/template.css">
+</head>
+<body>
+
+<header>
+    <h3> STOCK SYSTEM</h3>
+</header>
+
+
+<div class="container">
+
+    <nav>
+        <a href="{{url_for('funcionario')}}"> FUNCIONÁRIOS CADASTRADOS</a>
+        <a href="{{url_for('criar_funcionario')}}"> LOGIN FUNCIONÁRIOS</a>
+
+        <a href="{{url_for('produto')}}"> PRODUTOS CADASTRADOS</a>
+        <a href="{{url_for('criar_produto')}}"> LOGIN PRODUTOS</a>
+
+        <a href="{{url_for('categoria')}}"> CATEGORIA CADASTRADAS</a>
+        <a href="{{url_for('criar_categoria')}}"> LOGIN CATEGORIA</a>
+
+        <a href="{{url_for('atualizar_produto')}}"></a>
+        <a href="{{url_for('atualizar_funcionario')}}"></a>
+
+    </nav>
+
+
+    <main>
+        {% block conteudo %}
+        {% endblock %}
+    </main>
+
+</div>
+
+
+</body>
+</html>

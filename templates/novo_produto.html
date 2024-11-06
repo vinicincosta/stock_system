@@ -1,0 +1,21 @@
+{% extends 'template.html' %}
+
+
+{% block conteudo %}
+<form action="{{url_for('criar_produto')}}" method="POST">
+    <label> Nome </label>
+    <input type="text" name="form_nome">
+
+    <Label> Descrção </Label>
+    <input type="text" name="form_descricao">
+
+    <label> Quantidade_produto</label>
+    <input type="text" name="form_quantidade_produto">
+
+    <label> Categoria id</label>
+    <input type="text" name="form_categoria_id">
+    <button> Adicionar</button>
+    <button><a href="{{url_for('produto')}}"> Cancelar</a></button>
+</form>
+
+{% endblock conteudo %}
