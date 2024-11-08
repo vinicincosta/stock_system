@@ -1,6 +1,7 @@
 # importar bibliotecas
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Float
 from sqlalchemy.orm import scoped_session, sessionmaker, relationship, declarative_base
+from werkzeug.security import generate_password_hash, check_password_hash
 
 engine = create_engine('sqlite:///nome.sqlite3')
 db_session = scoped_session(sessionmaker(bind=engine))
@@ -14,16 +15,16 @@ class Produto(Base):
     __tablename__ = 'produto'
     id = Column(Integer, primary_key=True)
     nome = Column(String(40), nullable=False, index=True)
-    descricao = Column(String(80),nullable=False, index=True,)
+    descricao = Column(String(80), nullable=False, index=True,)
     quantidade_produto = Column(Integer, nullable=False,)
-    codigo_barras = Column(String(11), nullable=False, unique=True)
+    preco = Column(Float, nullable=False, unique=True)
     categoria_id = Column(Integer, ForeignKey('categoria.id'))
 
 
 
     # representação classe
     def __repr__(self):
-        return '<Produto: nome: {} descricao: {}  quantidade_produto: {}  categoria id: {}'.format(self.nome, self.descricao, self.quantidade_produto, self.categoria_id)
+        return '<Produto: nome: {} descricao: {}  quantidade_produto: {} preço: {} categoria id: {}'.format(self.nome, self.descricao, self.quantidade_produto, self.preco, self.categoria_id)
 
     # função para salvar no banco
 
@@ -41,8 +42,8 @@ class Produto(Base):
             "id_produto": self.id,
             "nome": self.nome,
             "descricao": self.descricao,
-            "quantidade_produtos": self.quantidade_produto,
-
+            "quantidade_produto": self.quantidade_produto,
+            "preco": self.preco,
             "categoria_id": self.categoria_id
         }
         return dados_produto
@@ -54,6 +55,11 @@ class Funcionario(Base):
     id = Column(Integer, primary_key=True, unique=True)
     cpf = Column(String(11), nullable=False, index=True, unique=True)
     salario = Column(Float, nullable=False, index=False)
+
+    # Senha Login
+    # passaword = Column(String, nullable=False, inde=True)
+    # username = Column(String, nullable=False, inde=True)
+
 
     def __repr__(self):
         return '<Funcionario: nome: {}  cpf: {}  salario: {}  id:{}>' .format(self.nome, self.cpf, self.salario, self.id)
@@ -136,7 +142,7 @@ class Categoria(Base):
     def serialize_Categoria(self):
         dados_Categoria = {
             "id_Categoria": self.id,
-            "nome_Classificacao": self .nome_Classificacao,
+            "nome_classificacao": self .nome_classificacao,
         }
         return dados_Categoria
 

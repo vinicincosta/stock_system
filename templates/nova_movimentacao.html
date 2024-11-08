@@ -1,0 +1,23 @@
+{% extends 'template.html' %}
+
+
+{% block conteudo %}
+<form action="{{url_for('criar_movimentacao')}}" method="POST">
+    <label> Volume Movimentacao </label>
+    <input type="text" name="form_nome">
+
+    <Label> Atividade </Label>
+    <input type="text" name="form_atividade">
+
+    <label> Produto Movimentado</label>
+    <input type="text" name="form_produto_movimentado">
+
+    <label> Funcionário Movimentado</label>
+    <input type="text" name="form_funcionario_movimentado">
+
+
+    <button> Adicionar</button>
+    <button><a href="{{url_for('movimentacao')}}"> Cancelar</a></button>
+</form>
+
+{% endblock conteudo %}

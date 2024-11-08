@@ -1,0 +1,20 @@
+{% extends 'template.html' %}
+
+
+{% block conteudo %}
+<form action="{{url_for('criar_funcionario')}}" method="POST">
+    <label> Nome Funcionário </label>
+    <input type="text" name="form_nome">
+
+    <Label> CPF</Label>
+    <input type="text" name="form_cpf">
+
+    <label> Salário</label>
+    <input type="text" name="form_salario">
+
+
+    <button> Adicionar</button>
+    <button><a href="{{url_for('funcionario')}}"> Cancelar</a></button>
+</form>
+
+{% endblock conteudo %}

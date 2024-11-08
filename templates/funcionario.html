@@ -1,0 +1,13 @@
+{% extends 'template.html' %}
+
+{% block conteudo %}
+
+{% for item in lista_funcionario %}
+<div class="conteudo">
+    <p> Nome:{{item.nome}} </p><br>
+    <p> Salário: {{item.salario}} </p> <br>
+    <p> CPF: {{item.cpf}}</p>
+</div>
+{% endfor %}
+
+{% endblock conteudo %}

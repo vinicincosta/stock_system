@@ -1,0 +1,16 @@
+{% extends 'template.html' %}
+
+{% block conteudo %}
+
+{% for item in lista_movimentacao %}
+
+<div class="conteudo">
+    <p> Volume Movimentacao: {{item.volume_movimentacao}} </p><br>
+    <p> Atividade: {{item.atividade}}</p> <br>
+    <p> Produto Movimentado: {{item.produto_movimentado}}</p> <br>
+    <p> Funcionário Movimentado: {{item.funcionario_movimentado}}</p>
+</div>
+
+{% endfor %}
+
+{% endblock conteudo %}

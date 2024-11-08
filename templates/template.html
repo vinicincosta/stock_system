@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -12,30 +12,58 @@
 
 <header>
     <h3> STOCK SYSTEM</h3>
+
+    <div>
+        <a href="{{url_for('produto')}}" class="imagem_template"> <!-- Link para a página inicial -->
+            <img class="produto" src="/static/produto.png" alt="Ícone da casa">
+        </a>
+    </div>
+
+    <div>
+        <a href="{{url_for('funcionario')}}" class="imagem_template"> <!-- Link para a página inicial -->
+            <img class="produto" src="/static/funcionario.jpg" alt="Ícone da casa">
+        </a>
+    </div>
+
+
 </header>
 
 
 <div class="container">
 
     <nav>
-        <a href="{{url_for('funcionario')}}"> FUNCIONÁRIOS CADASTRADOS</a>
-        <a href="{{url_for('criar_funcionario')}}"> LOGIN FUNCIONÁRIOS</a>
+<!--        <a href="{{url_for('funcionario')}}"> FUNCIONÁRIOS CADASTRADOS</a>-->
+        <a href="{{url_for('criar_funcionario')}}"> CADASTRO FUNCIONÁRIOS</a>
 
-        <a href="{{url_for('produto')}}"> PRODUTOS CADASTRADOS</a>
-        <a href="{{url_for('criar_produto')}}"> LOGIN PRODUTOS</a>
+<!--        <a href="{{url_for('produto')}}"> PRODUTOS CADASTRADOS</a>-->
+        <a href="{{url_for('criar_produto')}}"> CADASTRO PRODUTOS</a>
 
         <a href="{{url_for('categoria')}}"> CATEGORIA CADASTRADAS</a>
         <a href="{{url_for('criar_categoria')}}"> LOGIN CATEGORIA</a>
 
-        <a href="{{url_for('atualizar_produto')}}"></a>
-        <a href="{{url_for('atualizar_funcionario')}}"></a>
+        <a href="{{url_for('movimentacao')}}"> MOVIMENTAÇÕES CADASTRADAS</a>
+        <a href="{{url_for('criar_movimentacao')}}"> LOGIN MOVIMENTAÇÃO</a>
+
 
     </nav>
 
 
     <main>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+
         {% block conteudo %}
         {% endblock %}
+
     </main>
 
 </div>

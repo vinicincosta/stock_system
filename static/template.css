@@ -160,7 +160,7 @@ button:hover {
 }
 
 /* Estilos para ícones de casa */
-.imagem_casinha {
+.imagem_template {
     display: inline-block;
     border-radius: 50%; /* Formato circular */
     height: 50px;
@@ -172,21 +172,11 @@ button:hover {
     margin-right: 20px;
 }
 
-.imagem_casinha:hover {
+.imagem_template:hover {
     transform: scale(1.05); /* Efeito de aumento ao passar o mouse */
 }
 
-.casa {
-    display: inline-block;
-    height: 50px;
-    width: 50px;
-    margin-left: 10px; /* Espaço entre ícones */
-    background-color: #512da8;
-    border-radius: 10px; /* Cantos arredondados */
-    text-align: right;
-    line-height: 50px; /* Centraliza verticalmente */
-    color: white; /* Texto branco */
-}
+
 
 .conteudo {
     background: linear-gradient(135deg, rgba(139, 87, 255, 0.8), rgba(87, 0, 127, 0.8));
@@ -253,4 +243,114 @@ button:hover {
 
 .container_dash_consulta:hover {
     transform: scale(1.05);
+}
+
+.flashes {
+    list-style-type: none;
+    padding: 0;
+}
+
+.flashes li {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.flashes .success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.flashes .error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.flashes .info {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.produto {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    margin-left: 10px; /* Espaço entre ícones */
+    background-color: #3f51b5;
+    border-radius: 10px; /* Cantos arredondados */
+    text-align: right;
+    line-height: 50px; /* Centraliza verticalmente */
+    color: white; /* Texto branco */
+}
+
+nav {
+    background-color: #512da8; /* Roxo profundo para o menu */
+    width: 250px; /* Largura fixa do menu */
+    height: 100vh; /* Altura total da tela */
+    position: fixed; /* Fixa o nav na lateral */
+    top: 0; /* Alinha ao topo */
+    left: 0; /* Alinha à esquerda */
+    padding-top: 15px;
+    overflow-y: auto; /* Permite rolagem se necessário */
+    display: flex;
+    flex-direction: column; /* Flexbox para distribuir os links verticalmente */
+    font-family: 'Consolas', monospace; /* Fonte para aparência de controle */
+}
+
+nav a {
+    display: block;
+    padding: 12px 20px; /* Ajuste no padding para uniformidade */
+    font-size: 16px;
+    color: white; /* Texto branco no menu */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Linha separando os itens */
+    transition: background-color 0.3s; /* Transição suave */
+}
+
+nav a:hover {
+    background-color: #311b92; /* Roxo mais escuro no hover */
+}
+form {
+    background: linear-gradient(135deg, #512da8, #7b1fa2); /* Gradiente roxo para combinar com o nav */
+    padding: 20px;
+    border-radius: 10px; /* Cantos arredondados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin-top: 20px;
+    color: white; /* Texto branco */
+    font-family: 'Consolas', monospace; /* Fonte monoespaçada para combinar com o nav */
+}
+
+form input,
+form select,
+form textarea {
+    width: 100%; /* Largura total */
+    padding: 10px;
+    margin: 10px 0; /* Espaçamento entre campos */
+    border: 1px solid #9575cd; /* Borda roxa clara */
+    border-radius: 5px; /* Cantos arredondados */
+    background-color: #f3e5f5; /* Fundo suave para contraste */
+    color: #333; /* Cor do texto */
+    font-family: 'Consolas', monospace; /* Consistência de fonte */
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+    border-color: #311b92; /* Roxo mais escuro ao focar no campo */
+    outline: none; /* Remove contorno padrão */
+}
+
+button {
+    background-color: #512da8; /* Combina com o nav */
+    color: white; /* Texto branco */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s; /* Transição suave */
+    font-family: 'Consolas', monospace; /* Fonte consistente */
+}
+
+button:hover {
+    background-color: #311b92; /* Roxo mais escuro no hover */
 }

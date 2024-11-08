@@ -1,0 +1,15 @@
+{% extends 'template.html' %}
+
+{% block conteudo %}
+
+{% for item in lista_produto %}
+<div class="conteudo">
+    <p> Descrição: {{item.descricao}} </p><br>
+    <p> Quantidade Produto: {{item.quantidade_produto}}</p> <br>
+    <p> Nome: {{item.nome}}</p> <br>
+    <p> Categoria id: {{item.categoria_id}}</p><br>
+    <p> Preço: {{item.preco}}</p>
+</div>
+{% endfor %}
+
+{% endblock conteudo %}
