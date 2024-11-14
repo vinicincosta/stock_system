@@ -11,18 +11,41 @@
 <body>
 
 <header>
-    <h3> STOCK SYSTEM</h3>
+    <h3><strong>STOCK SYSTEM</strong></h3><br>
+    <div class="lista">
 
-    <div>
-        <a href="{{url_for('produto')}}" class="imagem_template"> <!-- Link para a página inicial -->
-            <img class="produto" src="/static/produto.png" alt="Ícone da casa">
-        </a>
-    </div>
 
-    <div>
-        <a href="{{url_for('funcionario')}}" class="imagem_template"> <!-- Link para a página inicial -->
-            <img class="produto" src="/static/funcionario.jpg" alt="Ícone da casa">
-        </a>
+        <div class="produto">
+            <a href="{{url_for('produto')}}" class="imagem_template"> <!-- Link para a página inicial -->
+                <img class="caracteristicas" src="/static/produto.png" alt="Ícone da casa">
+            </a>
+        </div>
+
+        <div class="produto">
+            <a href="{{url_for('funcionario')}}" class="imagem_template"> <!-- Link para a página inicial -->
+                <img class="caracteristicas" src="/static/funcionario.jpg" alt="Ícone da casa">
+            </a>
+        </div>
+
+        <div class="produto">
+            <a href="{{url_for('movimentacao')}}" class="imagem_template"> <!-- Link para a página inicial -->
+                <img class="caracteristicas" src="/static/movimentacao.png" alt="Ícone da casa">
+            </a>
+        </div>
+
+        <div class="produto">
+            <a href="{{url_for('categoria')}}" class="imagem_template"> <!-- Link para a página inicial -->
+                <img class="caracteristicas" src="/static/categoria.png" alt="Ícone da casa">
+            </a>
+        </div>
+
+        <div class="produto">
+            <a href="{{url_for('suporte')}}" class="imagem_template"> <!-- Link para a página inicial -->
+                <img class="caracteristicas" src="/static/suporte.png" alt="Ícone da casa">
+            </a>
+        </div>
+
+
     </div>
 
 
@@ -32,10 +55,10 @@
 <div class="container">
 
     <nav>
-<!--        <a href="{{url_for('funcionario')}}"> FUNCIONÁRIOS CADASTRADOS</a>-->
+        <!--        <a href="{{url_for('funcionario')}}"> FUNCIONÁRIOS CADASTRADOS</a>-->
         <a href="{{url_for('criar_funcionario')}}"> CADASTRO FUNCIONÁRIOS</a>
 
-<!--        <a href="{{url_for('produto')}}"> PRODUTOS CADASTRADOS</a>-->
+        <!--        <a href="{{url_for('produto')}}"> PRODUTOS CADASTRADOS</a>-->
         <a href="{{url_for('criar_produto')}}"> CADASTRO PRODUTOS</a>
 
         <a href="{{url_for('categoria')}}"> CATEGORIA CADASTRADAS</a>
@@ -43,6 +66,8 @@
 
         <a href="{{url_for('movimentacao')}}"> MOVIMENTAÇÕES CADASTRADAS</a>
         <a href="{{url_for('criar_movimentacao')}}"> LOGIN MOVIMENTAÇÃO</a>
+
+
 
 
     </nav>

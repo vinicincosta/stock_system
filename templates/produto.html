@@ -9,6 +9,7 @@
     <p> Nome: {{item.nome}}</p> <br>
     <p> Categoria id: {{item.categoria_id}}</p><br>
     <p> Preço: {{item.preco}}</p>
+     <a href="{{url_for('editar_produto', id_produto=item.id_produto)}}"> EDITAR</a>
 </div>
 {% endfor %}
 

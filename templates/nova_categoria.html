@@ -3,8 +3,8 @@
 
 {% block conteudo %}
 <form action="{{url_for('criar_categoria')}}" method="POST">
-    <label> Nome Classificação </label>
-    <input type="text" name="form_nome_classificacao">
+    <label> Nome Categoria </label>
+    <input type="text" name="form_name_categoria">
 
     <button> Adicionar</button>
     <button><a href="{{url_for('categoria')}}"> Cancelar</a></button>

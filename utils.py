@@ -7,7 +7,7 @@ def inserir_produto():
     produto = Produto(nome=str(input('Nome:')),
                       descricao=str(input('descricao:')),
                       quantidade_produto=int(input('quantidade_produto:')),
-                      codigo_barras=str(input('codigo_barras:')),
+                      preco=str(input('preco:')),
                       categoria_id=int(input('categoria_id:'))
                       )
 

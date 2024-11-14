@@ -1,6 +1,7 @@
 # importar bibliotecas
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Float
 from sqlalchemy.orm import scoped_session, sessionmaker, relationship, declarative_base
+
 from werkzeug.security import generate_password_hash, check_password_hash
 
 engine = create_engine('sqlite:///nome.sqlite3')
@@ -15,24 +16,23 @@ class Produto(Base):
     __tablename__ = 'produto'
     id = Column(Integer, primary_key=True)
     nome = Column(String(40), nullable=False, index=True)
-    descricao = Column(String(80), nullable=False, index=True,)
-    quantidade_produto = Column(Integer, nullable=False,)
-    preco = Column(Float, nullable=False, unique=True)
-    categoria_id = Column(Integer, ForeignKey('categoria.id'))
-
-
+    descricao = Column(String(80), nullable=False, index=True, )
+    quantidade_produto = Column(Integer, nullable=False, )
+    preco = Column(String, nullable=False, unique=True)
+    categoria_id = Column(String, nullable=False, unique=True)
+    categoria_name = Column(String, ForeignKey('categoria.name_categoria'))
 
     # representação classe
     def __repr__(self):
-        return '<Produto: nome: {} descricao: {}  quantidade_produto: {} preço: {} categoria id: {}'.format(self.nome, self.descricao, self.quantidade_produto, self.preco, self.categoria_id)
-
-    # função para salvar no banco
-
+        return ('<Produto: nome: {} descricao: {}  quantidade_produto: {} preço: {}categoria name: {} categoria_id:{}>'.format(self.nome, self.descricao,
+                                            self.quantidade_produto, self.preco,
+                                            self.categoria_name, self.categoria_id))
+        # função para salvar no banco
     def save(self):
         db_session.add(self)
         db_session.commit()
 
-    # função para deletar
+        # função para deletar
     def delete(self):
         db_session.delete(self)
         db_session.commit()
@@ -44,11 +44,12 @@ class Produto(Base):
             "descricao": self.descricao,
             "quantidade_produto": self.quantidade_produto,
             "preco": self.preco,
+            "categoria_name": self.categoria_name,
             "categoria_id": self.categoria_id
-        }
+            }
         return dados_produto
 
-# class funcionários
+    # class funcionários
 class Funcionario(Base):
     __tablename__ = 'funcionario'
     nome = Column(String(40), nullable=False, index=True)
@@ -60,16 +61,17 @@ class Funcionario(Base):
     # passaword = Column(String, nullable=False, inde=True)
     # username = Column(String, nullable=False, inde=True)
 
-
     def __repr__(self):
-        return '<Funcionario: nome: {}  cpf: {}  salario: {}  id:{}>' .format(self.nome, self.cpf, self.salario, self.id)
+        return ('<Funcionario: nome: {}  cpf: {}  salario: {}  id:{}>'.
+                format(self.nome, self.cpf, self.salario,
+                       self.id))
 
     # função para salvar no banco
     def save(self):
         db_session.add(self)
         db_session.commit()
 
-    #função para deletar
+    # função para deletar
     def delete(self):
         db_session.delete(self)
         db_session.commit()
@@ -83,44 +85,60 @@ class Funcionario(Base):
         }
         return dados_funcionario
 
-
-
-
 # class movimentação
 class Movimentacao(Base):
     __tablename__ = 'movimentacao'
     id = Column(Integer, primary_key=True)
     volume_movimentacao = Column(Integer, nullable=False)
-    atividade = Column(String(10), nullable=False, index=True)
-    produto_movimentado = Column(Integer,ForeignKey('produto.id'), nullable=False)
-    funcionario_movimentado = Column(Integer,ForeignKey('funcionario.id'), nullable=False)
+    atividade = Column(String(10), nullable=False, index=True)  # 'entrada' ou 'saida'
+    produto_movimentado = Column(Integer, ForeignKey('produto.id'), nullable=False)
+    funcionario_movimentado = Column(Integer, ForeignKey('funcionario.id'), nullable=False)
 
-    movimentacao_produto = relationship(Produto)
-    movimentacao_funcionario = relationship(Funcionario)
+    movimentacao_produto = relationship(Produto, backref='movimentacoes')
+    movimentacao_funcionario = relationship(Funcionario, backref='movimentacoes')
 
+    def aplicar_movimentacao(self):
+        produto = Produto.query.get(self.produto_movimentado)
+        if not produto:
+            return "Produto não encontrado"
+
+        if self.atividade == 'entrada':
+            produto.quantidade_produto += self.volume_movimentacao
+        elif self.atividade == 'saida':
+            if produto.quantidade_produto >= self.volume_movimentacao:
+                produto.quantidade_produto -= self.volume_movimentacao
+            else:
+                return "Quantidade insuficiente em estoque"
+
+        produto.save()
+        self.save()
+        return f"Movimentação de {self.volume_movimentacao} unidades realizada para {self.atividade}"
 
     def __repr__(self):
-        return '<Movimentação: id: {} atividade: {} volume_movimentacao: {} movimentacao_funcionario: {} movimentacao_produto: {} >' .format(self.id, self.atividade, self.volume_movimentacao, self.movimentacao_funcionario, self.movimentacao_produto)
+        return '<Movimentacao: id: {} atividade: {} volume_movimentacao: {} produto: {} funcionário: {}>'.format(
+            self.id,
+            self.atividade,
+            self.volume_movimentacao,
+            self.produto_movimentado,
+            self.funcionario_movimentado
+        )
 
-    # função para salvar no banco
     def save(self):
         db_session.add(self)
         db_session.commit()
 
-    #função para deletar
     def delete(self):
         db_session.delete(self)
         db_session.commit()
 
     def serialize_movimentacao(self):
-        dados_movimentacao = {
+        return {
             "id": self.id,
-            "volume": self.volume_movimentacao,
-            "tipo de movimentação": self.atividade,
-            "funconário responsável": self.movimentacao_funcionario,
-            "produto": self.movimentacao_produto
+            "volume_movimentacao": self.volume_movimentacao,
+            "atividade": self.atividade,
+            "produto_movimentado": self.produto_movimentado,  # Exibindo apenas o ID do produto
+            "funcionario_movimentado": self.funcionario_movimentado  # Exibindo apenas o ID do funcionário
         }
-        return dados_movimentacao
 
 
 class Categoria(Base):
@@ -129,7 +147,7 @@ class Categoria(Base):
     nome_classificacao = Column(String(20), nullable=False)
 
     def __repr__(self):
-        return '<Categoria: nome_classificacao: {} id: {}>' .format(self.nome_classificacao, self.id)
+        return '<Categoria: name_categoria: {} id: {}>'.format(self.name_categoria, self.id)
 
     def save(self):
         db_session.add(self)
@@ -142,10 +160,9 @@ class Categoria(Base):
     def serialize_Categoria(self):
         dados_Categoria = {
             "id_Categoria": self.id,
-            "nome_classificacao": self .nome_classificacao,
+            "name_classificacao": self.name_categoria,
         }
         return dados_Categoria
-
 
 class Movimentacao_Produto(Base):
     __tablename__ = 'movimentacao_produto'
@@ -157,13 +174,15 @@ class Movimentacao_Produto(Base):
     movimentacoes = relationship(Movimentacao)
 
     def __repr__(self):
-        return '<Movimentação: {} {} {} {} {}>' .format(self.id, self.produto, self.produtos, self.movimentacao, self.movimentacoes)
+        return '<Movimentação: {} {} {} {} {}>'.format(self.id, self.produto, self.produtos, self.movimentacao,
+                                                       self.movimentacoes)
 
     def save(self):
         db_session.add(self)
         db_session.commit()
 
         # função para deletar
+
     def delete(self):
         db_session.delete(self)
         db_session.commit()
@@ -178,6 +197,17 @@ class Movimentacao_Produto(Base):
 
 def init_db():
     Base.metadata.create_all(bind=engine)
+
+
+
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     init_db()

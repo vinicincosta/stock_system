@@ -2,22 +2,54 @@
 
 
 {% block conteudo %}
-<form action="{{url_for('criar_movimentacao')}}" method="POST">
-    <label> Volume Movimentacao </label>
-    <input type="text" name="form_nome">
 
-    <Label> Atividade </Label>
-    <input type="text" name="form_atividade">
+<form action="/cadastrar_movimentacao" method="post">
+    <label for="volume_movimentacao">Volume da Movimentação:</label><br>
+    <input type="number" id="volume_movimentacao" name="volume_movimentacao" required><br><br>
 
-    <label> Produto Movimentado</label>
-    <input type="text" name="form_produto_movimentado">
+    <label for="atividade">Tipo de Movimentação:</label><br>
+    <select id="atividade" name="atividade" required>
+        <option value="entrada">Entrada</option>
+        <option value="saida">Saída</option>
+    </select><br><br>
 
-    <label> Funcionário Movimentado</label>
-    <input type="text" name="form_funcionario_movimentado">
+    <label for="produto_movimentado"> Produtos:</label><br>
+    <select id="produto_movimentado" name="produto_movimentado" required>
+        {% for produto in produtos %}
+        <option value="{{ produto.id }}"> {{produto.nome}}</option>
 
+        {% endfor %}
+    </select>
 
-    <button> Adicionar</button>
-    <button><a href="{{url_for('movimentacao')}}"> Cancelar</a></button>
+    <label for="funcionario_movimentado"> Funcionários:</label><br>
+    <select id="funcionario_movimentado" name="funcionario_movimentado" required>
+        {% for funcionario in funcionarios%}
+        <option value="{{ funcionario.id }}"> {{funcionario.nome}}</option>
+
+        {% endfor %}
+    </select>
+
+    <input type="submit" value="Cadastrar Movimentação">
 </form>
 
+
 {% endblock conteudo %}
+
+
+<!--<form action="{{url_for('criar_movimentacao')}}" method="POST">-->
+<!--    <label> Volume Movimentacao </label>-->
+<!--    <input type="text" name="form_nome">-->
+
+<!--    <Label> Atividade </Label>-->
+<!--    <input type="text" name="form_atividade">-->
+
+<!--    <label> Produto Movimentado</label>-->
+<!--    <input type="text" name="form_produto_movimentado">-->
+
+<!--    <label> Funcionário Movimentado</label>-->
+<!--    <input type="text" name="form_funcionario_movimentado">-->
+
+
+<!--    <button> Adicionar</button>-->
+<!--    <button><a href="{{url_for('movimentacao')}}"> Cancelar</a></button>-->
+<!--</form>-->

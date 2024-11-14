@@ -2,15 +2,41 @@
 
 {% block conteudo %}
 
-{% for item in lista_movimentacao %}
-
-<div class="conteudo">
-    <p> Volume Movimentacao: {{item.volume_movimentacao}} </p><br>
-    <p> Atividade: {{item.atividade}}</p> <br>
-    <p> Produto Movimentado: {{item.produto_movimentado}}</p> <br>
-    <p> Funcionário Movimentado: {{item.funcionario_movimentado}}</p>
-</div>
-
-{% endfor %}
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Volume da Movimentação</th>
+        <th>Tipo de Movimentação</th>
+        <th>ID do Produto</th>
+        <th>ID do Funcionário</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Exemplo de como os dados podem ser renderizados dinamicamente -->
+    {% for movimentacao in movimentacoes %}
+    <tr>
+        <td>{{ movimentacao.id }}</td>
+        <td>{{ movimentacao.volume_movimentacao }}</td>
+        <td>{{ movimentacao.atividade }}</td>
+        <td>{{ movimentacao.produto_movimentado }}</td>
+        <td>{{ movimentacao.funcionario_movimentado }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
 
 {% endblock conteudo %}
+
+
+{% for item in lista_movimentacao %}-->
+
+<!--<div class="conteudo">-->
+<!--    <p> Volume Movimentacao: {{item.volume_movimentacao}} </p><br>-->
+<!--    <p> Atividade: {{item.atividade}}</p> <br>-->
+<!--    <p> Produto Movimentado: {{item.produto_movimentado}}</p> <br>-->
+<!--    <p> Funcionário Movimentado: {{item.funcionario_movimentado}}</p>-->
+<!--</div>-->
+
+<!--{% endfor %}
+
