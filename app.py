@@ -22,17 +22,27 @@ def suporte():
 
 @app.route('/produto', methods=['GET'])
 def produto():
-    sql_produto = select(Produto)
-    resultado_produto = db_session.execute(sql_produto).scalars()
-    lista_produto = []
-    for n in resultado_produto:
-        lista_produto.append(n.serialize_produto())
-        print(lista_produto[-1])
+    sql_produto = select(Produto, Categoria).join(Categoria, Categoria.id == Produto.categoria_id)
+    resultado_produto = db_session.execute(sql_produto).fetchall()  # quando é join fetchall invez de de scalars
+
     return render_template('produto.html',
-                           lista_produto=lista_produto)
+                           lista_produto=resultado_produto)
+
+
+@app.route('/listar_movimentacoes')
+def movimentacao():
+    sql_mov = (select(Movimentacao, Produto, Funcionario).join(Produto, Movimentacao.produto_movimentado == Produto.id)
+               .join(Funcionario, Movimentacao.funcionario_movimentado == Funcionario.id))
+    resultado_mov = db_session.execute(sql_mov).fetchall()
+    print(resultado_mov)
+
+    return render_template('movimentacao.html', movimentacoes=resultado_mov)
+
 
 @app.route('/novo_produto', methods=['POST', 'GET'])
 def criar_produto():
+    sql_categoria = select(Categoria)
+    resultado_categoria = db_session.execute(sql_categoria).scalars()
     # quando clicar no botao de salva
     if request.method == "POST": # Enviar no banco
 
@@ -58,20 +68,26 @@ def criar_produto():
             # dentro do url sempre chamar função
             return redirect(url_for("produto"))
             # sempre no render chamar html
-    return render_template('novo_produto.html')
+
+    return render_template('novo_produto.html',
+                           categorias=resultado_categoria)
 
 
-@app.route('/editar_produto/<int:id_produto>', methods=['POST','GET'])
+@app.route('/editar_produto/<int:id_produto>', methods=['POST', 'GET'])
 def editar_produto(id_produto):
-    #busca de acordo com o id, usando o db_session
+    sql_categoria = select(Categoria)
+    resultado_categoria = db_session.execute(sql_categoria).scalars()
+    # busca de acordo com o id, usando o db_session
     produto_resultado = db_session.execute(select(Produto).filter_by(id=int(id_produto))).scalar()
+    sql_categoria_atual = db_session.execute(select(Categoria).filter_by(id=produto_resultado.categoria_id)).scalar()
     print(produto_resultado)
-    #verifica se existe
+
+    # verifica se existe
     if not produto_resultado:
         flash("Produto não encontrado", "error")
         return redirect(url_for('produto'))
     if request.method == 'POST':
-        #valida os dados recebidos
+        # valida os dados recebidos
         if not request.form.get('form_nome'):
             flash("Preencher campo", "error")
         elif not request.form.get('form_descricao'):
@@ -79,26 +95,54 @@ def editar_produto(id_produto):
         elif not request.form.get('form_preco'):
             flash("Preencher campo", "error")
         elif not request.form.get('form_categoria_id'):
-            flash("Preencher campo categoria", "error")
+            flash("Preencher campo", "error")
         else:
             try:
-                #atualiza os da0000000000000000000000000000000,
-
-
-
-                # ,0dos
+                # o ponto (.) busca a informação
+                # atualiza os dados
                 produto_resultado.nome = request.form.get('form_nome')
                 produto_resultado.descricao = request.form.get('form_descricao')
                 produto_resultado.preco = request.form.get('form_preco')
-                produto_resultado.categoria = request.form.get('form_categoria_id')
-                #salva os dados alterados
+                produto_resultado.categoria_id = request.form.get('form_categoria_id')
+                # salva os dados alterados
                 produto_resultado.save()
                 flash("Produto atualizado com sucesso!", "sucess")
                 return redirect(url_for('produto'))
             except Exception:
                 flash(f"Erro {Exception}", "error")
-    return render_template('editar_produto.html', produto=produto_resultado)
+    return render_template('editar_produto.html', produto=produto_resultado, categorias=resultado_categoria,
+                           categoria_atual=sql_categoria_atual)
 
+
+@app.route('/editar_funcionario/<int:id_funcionario>', methods=['POST', 'GET'])
+def editar_funcionario(id_funcionario):
+    # busca de acordo com o id, usando o db_session
+    funcionario_resultado = db_session.execute(select(Funcionario).filter_by(id=int(id_funcionario))).scalar()
+    print(funcionario_resultado)
+    # verifica se existe
+    if not funcionario_resultado:
+        flash("Funcionario não encontrado", "error")
+        return redirect(url_for('funcionario'))
+    if request.method == 'POST':
+        # valida os dados recebidos
+        if not request.form.get('form_nome'):
+            flash("Preencher campo", "error")
+        elif not request.form.get('form_salario'):
+            flash("Preencher campo", "error")
+
+        else:
+            try:
+                # atualiza os dados
+                funcionario_resultado.nome = request.form.get('form_nome')
+                funcionario_resultado.salario = request.form.get('form_salario')
+
+                # salva os dados alterados
+                funcionario_resultado.save()
+                flash("funcionário atualizado com sucesso!", "sucess")
+                return redirect(url_for('funcionario'))
+            except Exception:
+                flash(f"Erro {Exception}", "error")
+    return render_template('editar_funcionario.html', funcionario=funcionario_resultado)
 
 
 @app.route('/funcionario', methods=['GET'])
@@ -227,7 +271,7 @@ def criar_categoria():
 @app.route('/cadastrar_movimentacao', methods=['GET', 'POST'])
 def criar_movimentacao():
     sql_produto = select(Produto)
-    resultado_produto = db_session.execute(sql_produto).scalars()
+    resultado_produto = db_session.execute(sql_produto).scalar()
     sql_funcionario = select(Funcionario)
     resultado_funcionario = db_session.execute(sql_funcionario).scalars()
     if request.method == 'POST':
@@ -236,25 +280,117 @@ def criar_movimentacao():
         produto_id = int(request.form['produto_movimentado'])
         funcionario_id = int(request.form['funcionario_movimentado'])
 
-        movimentacao = Movimentacao(
-            volume_movimentacao=volume,
-            atividade=atividade,
-            produto_movimentado=produto_id,
-            funcionario_movimentado=funcionario_id
-        )
-        movimentacao.aplicar_movimentacao()  # Método que ajusta o estoque e salva a movimentação
-        return redirect(url_for('movimentacao'))
+        if not produto:
+            return "Produto não encontrado"
+
+        if atividade == 'saida':
+            if resultado_produto.verificar_volume():
+                movimentacao = Movimentacao(
+                    volume_movimentacao=volume,
+                    atividade=atividade,
+                    produto_movimentado=produto_id,
+                    funcionario_movimentado=funcionario_id
+                )
+                return redirect(url_for('movimentacao'))
+
+        elif atividade =="entrada":
+            if resultado_produto.verificar_volume():
+                movimentacao = Movimentacao(
+                    volume_movimentacao=volume,
+                    atividade=atividade,
+                    produto_movimentado=produto_id,
+                    funcionario_movimentado=funcionario_id
+                )
+
+
+
+            if atividade == 'saida':
+                # Checar se há quantidade suficiente no estoque
+                if produto.quantidade_produto < volume:
+                    return f"Estoque insuficiente. Disponível: {produto.quantidade_produto} unidades.", 400
+
+                # Atualizar estoque para saída
+                produto.quantidade_produto -= volume
+            elif atividade == 'entrada':
+                # Atualizar estoque para entrada
+                produto.quantidade_produto += volume
+            else:
+                return "Atividade inválida. Escolha 'entrada' ou 'saida'.", 400
+
+
+
+        elif False:
+            return f"Estoque insuficiente. Disponível: {produto.quantidade_produto} unidades.",
 
     return render_template('nova_movimentacao.html',
                            produtos=resultado_produto, funcionarios=resultado_funcionario)
 
 
-@app.route('/listar_movimentacoes')
-def movimentacao():
-    movimentacoes = Movimentacao.query.all()
-    # {'': hxhgjv}
+@app.route('/editar_movimentacao/<int:id_movimentacao>', methods=['POST', 'GET'])
+def editar_movimentacao(id_movimentacao):
+    # busca de acordo com o id, usando o db_session
+    print(id_movimentacao)
+    teste = select(Movimentacao)
+    movimentacao_resultado = db_session.execute(
+        select(Movimentacao).filter_by(id=id_movimentacao)).scalar()
+    print('xxxxxxxxxx', movimentacao_resultado)
+    # verifica se existe
+    if not movimentacao_resultado:
+        flash("Movimentação não encontrada", "error")
+        return redirect(url_for('movimentacao'))
+    if request.method == 'POST':
+        # valida os dados recebidos
+        if not request.form.get('form_volume_movimentacao'):
+            flash("Preencher campo", "error")
+        elif not request.form.get('form_atividade'):
+            flash("Preencher campo", "error")
+        elif not request.form.get('form_produto_movimentado'):
+            flash("Preencher campo", "error")
+        elif not request.form.get('form_funcionario_movimentado'):
+            flash("Preencher campo", "error")
+        else:
+            try:
+                # atualiza os dados
+                movimentacao_resultado.volume_movimentacao = request.form.get('form_volume_movimentacao')
+                movimentacao_resultado.atividade = request.form.get('form_atividade')
+                movimentacao_resultado.produto_movimentado = request.form.get('form_produto_movimentado')
+                movimentacao_resultado.funcionario_movimentado = request.form.get('form_funcionario_movimentado')
+                # salva os dados alterados
+                movimentacao_resultado.save()
+                flash("Movimentação atualizada com sucesso!", "sucess")
+                return redirect(url_for('movimentacao'))
+            except Exception:
+                flash(f"Erro {Exception}", "error")
+    return render_template('editar_movimentacao.html', movimentacao=movimentacao_resultado)
 
-    return render_template('movimentacao.html', movimentacoes=movimentacoes)
+
+@app.route('/editar_categoria/<int:id_categoria>', methods=['POST', 'GET'])
+def editar_categoria(id_categoria):
+    # busca de acordo com o id, usando o db_session
+    categoria_resultado = db_session.execute(select(Categoria).filter_by(id=int(id_categoria))).scalar()
+    print(categoria_resultado)
+    # verifica se existe
+    if not categoria_resultado:
+        flash("Categoria não encontrado", "error")
+        return redirect(url_for('categoria'))
+    if request.method == 'POST':
+        # valida os dados recebidos
+        if not request.form.get('form_name_categoria'):
+            flash("Preencher campo", "error")
+
+        else:
+            try:
+                # atualiza os dados
+                categoria_resultado.name_categoria = request.form.get('form_name_categoria')
+
+                # salva os dados alterados
+                categoria_resultado.save()
+                flash("Categoria atualizado com sucesso!", "sucess")
+                return redirect(url_for('categoria'))
+            except Exception:
+                flash(f"Erro {Exception}", "error")
+    return render_template('editar_categoria.html', categoria=categoria_resultado)
+
 
 # @app.route('/dashboard_estoque')
 # def dashboard_estoque():
@@ -268,6 +404,31 @@ def movimentacao():
 #         quantidades.append(produto.quantidade_produto)
 #
 #     return render_template('dashboard.html', produtos=produtos, quantidades=quantidades)
+
+# @app.route('/cadastrar_movimentacao', methods=['GET', 'POST'])
+# def criar_movimentacao():
+#     sql_produto = select(Produto)
+#     resultado_produto = db_session.execute(sql_produto).scalars()
+#     sql_funcionario = select(Funcionario)
+#     resultado_funcionario = db_session.execute(sql_funcionario).scalars()
+#     if request.method == 'POST':
+#         volume = int(request.form['volume_movimentacao'])
+#         atividade = request.form['atividade']
+#         produto_id = int(request.form['produto_movimentado'])
+#         funcionario_id = int(request.form['funcionario_movimentado'])
+#
+#         movimentacao = Movimentacao(
+#             volume_movimentacao=volume,
+#             atividade=atividade,
+#             produto_movimentado=produto_id,
+#             funcionario_movimentado=funcionario_id
+#         )
+#         movimentacao.aplicar_movimentacao()  # Método que ajusta o estoque e salva a movimentação
+#         return redirect(url_for('movimentacao'))
+#
+#     return render_template('nova_movimentacao.html',
+#                            produtos=resultado_produto, funcionarios=resultado_funcionario)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

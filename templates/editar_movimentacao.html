@@ -1,0 +1,71 @@
+<!--{% extends 'template.html' %}-->
+
+
+<!--{% block conteudo %}-->
+
+<!--<form action="{{url_for('editar_movimentacao', id_movimentacao=movimentacao.id)}}" method="post">-->
+<!--    <label for="volume_movimentacao">Volume da Movimentação:</label><br>-->
+<!--    <input type="number" id="volume_movimentacao" name="volume_movimentacao" value="{{movimentacao.volume_movimentacao}}" required><br><br>-->
+
+<!--    <label for="atividade">Tipo de Movimentação:</label><br>-->
+<!--    <select id="atividade" name="atividade" value="{{movimentacao.atividade}}" required>-->
+<!--        <option value="entrada">Entrada</option>-->
+<!--        <option value="saida">Saída</option>-->
+<!--    </select><br><br>-->
+
+<!--    <label for="produto_movimentado"> Produtos:</label><br>-->
+<!--    <select id="produto_movimentado" name="produto_movimentado" value="{{movimentacao.produto_movimentado}}" required>-->
+<!--        {% for produto in produtos %}-->
+<!--        <option value="{{ produto.id }}"> {{produto.nome}}</option>-->
+
+<!--        {% endfor %}-->
+<!--    </select>-->
+
+<!--    <label for="funcionario_movimentado"> Funcionários:</label><br>-->
+<!--    <select id="funcionario_movimentado" name="funcionario_movimentado" value="{{movimentacao.funcionario_movimentado}}" required>-->
+<!--        {% for funcionario in funcionarios%}-->
+<!--        <option value="{{ funcionario.id }}"> {{funcionario.nome}}</option>-->
+<!--        {% endfor %}-->
+<!--    </select>-->
+<!-- &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+
+
+
+
+
+<!--    <label for="produto_movimentado"> Produtos:</label><br>-->
+<!--    <select id="produto_movimentado" name="produto_movimentado" required>-->
+<!--        {% for produto in produtos %}-->
+<!--        <option value="{{ produto.id }}"> {{produto.nome}}</option>-->
+
+<!--        {% endfor %}-->
+<!--    </select>-->
+
+<!--    <label for="funcionario_movimentado"> Funcionários:</label><br>-->
+<!--    <select id="funcionario_movimentado" name="funcionario_movimentado" required>-->
+<!--        {% for funcionario in funcionarios%}-->
+<!--        <option value="{{ funcionario.id }}"> {{funcionario.nome}}</option>-->
+
+<!--        {% endfor %}-->
+<!--    </select>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <button> Atualizar</button>
+    <button><a href="{{url_for('produto')}}"> Cancelar</a></button>
+</form>
+
+{% endblock conteudo %}

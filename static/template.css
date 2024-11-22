@@ -138,7 +138,6 @@ button:hover {
 }
 
 
-
 .conteudo {
     background: linear-gradient(135deg, rgba(139, 87, 255, 0.8), rgba(87, 0, 127, 0.8));
     text-align: start;
@@ -246,32 +245,9 @@ button:hover {
     margin-bottom: 10px;
 }
 
-nav {
-    background-color: #512da8; /* Roxo profundo para o menu */
-    width: 250px; /* Largura fixa do menu */
-    height: 100vh; /* Altura total da tela */
-    position: fixed; /* Fixa o nav na lateral */
-    top: 0; /* Alinha ao topo */
-    left: 0; /* Alinha à esquerda */
-    padding-top: 15px;
-    overflow-y: auto; /* Permite rolagem se necessário */
-    display: flex;
-    flex-direction: column; /* Flexbox para distribuir os links verticalmente */
-    font-family: 'Consolas', monospace; /* Fonte para aparência de controle */
-}
 
-nav a {
-    display: block;
-    padding: 12px 20px; /* Ajuste no padding para uniformidade */
-    font-size: 16px;
-    color: white; /* Texto branco no menu */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Linha separando os itens */
-    transition: background-color 0.3s; /* Transição suave */
-}
 
-nav a:hover {
-    background-color: #311b92; /* Roxo mais escuro no hover */
-}
+
 form {
     background: linear-gradient(135deg, #512da8, #7b1fa2); /* Gradiente roxo para combinar com o nav */
     padding: 20px;
@@ -317,13 +293,7 @@ button {
 button:hover {
     background-color: #311b92; /* Roxo mais escuro no hover */
 }
-h2{
-    font-family: "Baskerville Old Face";
-}
 
-h3{
-    font-family: "Baskerville Old Face";
-}
 main {
     flex: 1;
     padding: 0;
@@ -361,7 +331,6 @@ header img {
     font-size: 26px; /* Aumenta o tamanho do texto */
     font-weight: bold; /* Torna o texto mais forte */
     text-align: center;
-    margin-bottom: 50px; /* Aumenta a margem inferior para dar mais espaço */
     color: #5a5a3e; /* Verde amarronzado */
     font-family: 'Georgia', serif;
     width: 80%; /* Ocupa mais espaço horizontalmente */
@@ -391,5 +360,265 @@ header img {
     object-fit: cover; /* Garante que a imagem fique bem ajustada dentro do container */
 }
 
+.duvida_home{
+    max-width: 20%; /* Reduz a largura da imagem */
+    height: auto;
+    border: black;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    margin: 20px 0 20px 20px; /* Ajusta as margens para afastar da borda direita */
+    display: block;
+    transition: transform 0.5s;
+    text-align: center;
+
+}
 
 
+.duvida_home img {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover; /* Garante que a imagem fique bem ajustada dentro do container */
+}
+nav a {
+    display: block;
+    padding: 8px 15px; /* Reduzi o padding */
+    font-size: 14px; /* Diminuí o tamanho da fonte */
+    color: white; /* Texto branco no menu */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Linha separando os itens */
+    transition: background-color 0.3s; /* Transição suave */
+    margin: 5px 10px; /* Adiciona espaçamento entre os links */
+    border-radius: 5px; /* Deixa os cards mais compactos */
+}
+html, body {
+    font-family: 'Roboto', sans-serif; /* Exemplo: Roboto é uma fonte limpa e moderna */
+    background-color: #f3e5f5; /* Fundo suave roxo claro */
+    color: #333; /* Cor do texto padrão */
+}
+h2, h3 {
+    font-family: 'Merriweather', serif; /* Exemplo de uma fonte serif elegante */
+    color: #311b92; /* Roxo escuro para destaque */
+}
+form input,
+form select,
+form textarea,
+button {
+    font-family: 'Roboto', sans-serif;
+}
+nav a:hover {
+    background-color: #311b92; /* Roxo mais escuro no hover */
+}
+.conteudo, .container_dash_consulta {
+    background: #ffffff; /* Fundo branco para um visual limpo e formal */
+    text-align: start;
+    display: inline-block;
+    width: 260px;
+    height: auto; /* Ajuste automático da altura para conteúdo variável */
+    border-radius: 5px; /* Cantos menos arredondados para maior formalidade */
+    font-size: 16px; /* Tamanho de texto menor para maior clareza */
+    padding: 20px; /* Espaçamento interno para maior legibilidade */
+    border: 1px solid #d1d1d1; /* Bordas suaves e discretas */
+    margin: 15px; /* Espaço entre os cards */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra leve para destacar sem exagerar */
+    transition: transform 0.3s, box-shadow 0.3s; /* Transição suave para efeitos */
+    color: #333; /* Texto em cinza escuro */
+    font-family: 'Georgia', serif; /* Fonte com serifa para formalidade */
+}
+
+.conteudo:hover, .container_dash_consulta:hover {
+    transform: scale(1.02); /* Leve aumento ao passar o mouse */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada no hover */
+}
+.container_dash_consulta {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    text-align: start;
+    display: inline-block;
+    width: 260px;
+    height: 274px;
+    border-radius: 15px;
+    font-size: 18px;
+    padding: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    margin: 20px; /* Maior espaçamento entre os cards */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+    color: black;
+    font-family: Arial, sans-serif;
+    vertical-align: top; /* Alinhamento vertical */
+}
+
+.container_dash_consulta:hover {
+    transform: scale(1.05);
+}
+
+.container_dash_animal {
+    background: linear-gradient(135deg, #a8e063, #56ab2f);
+    text-align: start;
+    display: inline-block;
+    width: 260px;
+    height: 274px;
+    border-radius: 15px;
+    font-size: 18px;
+    padding: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    margin: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+    color: black;
+    font-family: Arial, sans-serif;
+    vertical-align: top; /* Alinhamento vertical */
+}
+
+.container_dash_animal:hover {
+    transform: scale(1.05);
+}
+
+
+
+.conteudo_dash {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(0, 128, 255, 0.8), rgba(128, 0, 255, 0.8));
+    font-size: 22px;
+    text-align: center;
+    border-radius: 10px;
+    border-bottom: black;
+    padding: 15px; /* Mantendo o padding */
+    margin: 10px;
+    color: white;
+}
+
+.conteudo_dash:hover {
+    transform: scale(1.05);
+}
+
+
+.container_dash_consulta,
+.container_dash_animal,
+.container_cadastro_produto {
+    background: linear-gradient(135deg, #bdc3c7, #2c3e50); /* Gradiente suave para combinar com o estilo do nav */
+    color: #fff; /* Texto branco para contraste */
+    font-family: 'Georgia', serif; /* Fonte para consistência */
+    border: 1px solid rgba(44, 62, 80, 0.2); /* Borda sutil para destacar os containers */
+    margin: 20px; /* Espaçamento consistente entre os cards */
+    padding: 20px; /* Padding para melhor alinhamento */
+    border-radius: 12px; /* Bordas levemente arredondadas */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
+    transition: transform 0.3s;
+
+}
+
+
+.container_dash_consulta:hover,
+.container_dash_animal:hover,
+.container_cadastro_produto:hover {
+    transform: scale(1.03); /* Leve efeito de escala para interatividade */
+}
+
+.conteudo_dash {
+    color: #ecf0f1; /* Cinza claro para contraste elegante */
+    font-family: 'Georgia', serif; /* Fonte mais formal */
+    transform: scale(1.03); /* Leve efeito de escala para interatividade */
+}
+
+.container_dash_consulta {
+    height: 300px;
+}
+
+.conteudo_conslta{
+
+}
+
+.container_cadastro_produto {
+    background: linear-gradient(135deg, #bdc3c7, #2c3e50); /* Gradiente suave */
+    color: #ffffff; /* Texto branco para contraste */
+    font-family: 'Georgia', serif; /* Fonte para consistência */
+    border: 1px solid rgba(44, 62, 80, 0.2); /* Borda sutil */
+    margin: 20px; /* Espaçamento consistente com outros cards */
+    padding: 20px; /* Padding adequado */
+    border-radius: 12px; /* Bordas arredondadas suaves */
+    width: 260px; /* Largura consistente */
+    height: auto; /* Ajuste automático da altura */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
+    text-align: start; /* Alinhamento à esquerda para conteúdo */
+    display: inline-block;
+    transition: transform 0.3s, box-shadow 0.3s; /* Transições suaves */
+}
+
+.container_cadastro_produto:hover {
+    transform: scale(1.03); /* Efeito de escala suave */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
+}
+/* Estilo geral da tabela */
+table {
+    width: 100%; /* Ocupa toda a largura disponível */
+    border-collapse: collapse; /* Remove os espaços entre as células */
+    margin: 20px 0; /* Margem superior e inferior */
+    font-size: 16px; /* Tamanho do texto */
+    font-family: 'Arial', sans-serif;
+    background-color: #f6f0fa; /* Fundo roxo muito claro */
+    border-radius: 10px; /* Bordas arredondadas */
+    overflow: hidden; /* Remove excessos visuais nos cantos */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil para profundidade */
+}
+
+/* Cabeçalho da tabela */
+thead {
+    background-color: #d1c4e9; /* Roxo claro */
+    color: #4a3f7a; /* Roxo escuro para contraste */
+    font-weight: bold;
+}
+
+thead th {
+    padding: 15px; /* Espaçamento interno */
+    text-align: center; /* Centraliza o texto */
+    font-size: 18px; /* Tamanho da fonte do cabeçalho */
+    border-bottom: 2px solid #b39ddb; /* Linha inferior roxa */
+}
+
+/* Corpo da tabela */
+tbody tr {
+    border-bottom: 1px solid #e0d8f1; /* Linha separadora */
+    transition: background-color 0.2s ease; /* Transição suave no hover */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #ebe3f6; /* Fundo alternado (roxo muito claro) */
+}
+
+tbody tr:hover {
+    background-color: #d1c4e9; /* Destaque roxo claro ao passar o mouse */
+}
+
+tbody td {
+    padding: 12px 15px; /* Espaçamento interno */
+    text-align: center; /* Centraliza o texto */
+    color: #4a3f7a; /* Texto em roxo escuro */
+}
+
+/* Estilo para links (Editar) */
+tbody td a {
+    text-decoration: none; /* Remove o sublinhado */
+    color: #7e57c2; /* Roxo médio */
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+tbody td a:hover {
+    color: #5e35b1; /* Roxo mais escuro no hover */
+}
+
+/* Ajustes visuais para o container geral da tabela */
+table {
+    border: 1px solid #d1c4e9; /* Borda suave */
+}
+
+/*!* Responsividade *!*/
+/*@media (max-width: 768px) {*/
+/*    table {*/
+/*        font-size: 14px; !* Texto menor em telas pequenas *!*/
+/*    }*/
+
+/*    thead th,*/
+/*    tbody td {*/
+/*        padding: 10px; !* Reduz o espaçamento interno *!*/
+/*    }*/
+/*}*/

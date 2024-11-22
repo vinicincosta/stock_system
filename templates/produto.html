@@ -2,14 +2,14 @@
 
 {% block conteudo %}
 
-{% for item in lista_produto %}
+{% for produto, categoria in lista_produto %}
 <div class="conteudo">
-    <p> Descrição: {{item.descricao}} </p><br>
-    <p> Quantidade Produto: {{item.quantidade_produto}}</p> <br>
-    <p> Nome: {{item.nome}}</p> <br>
-    <p> Categoria id: {{item.categoria_id}}</p><br>
-    <p> Preço: {{item.preco}}</p>
-     <a href="{{url_for('editar_produto', id_produto=item.id_produto)}}"> EDITAR</a>
+    <p> Descrição: {{produto.descricao}} </p><br>
+    <p> Quantidade Produto: {{produto.quantidade_produto}}</p> <br>
+    <p> Nome: {{produto.nome}}</p> <br>
+    <p> Categoria : {{categoria.name_categoria}}</p><br>
+    <p> Preço: {{produto.preco}}</p>
+    <a href="{{url_for('editar_produto', id_produto=produto.id)}}"> EDITAR</a>
 </div>
 {% endfor %}
 

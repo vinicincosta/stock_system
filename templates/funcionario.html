@@ -7,7 +7,9 @@
     <p> Nome:{{item.nome}} </p><br>
     <p> Salário: {{item.salario}} </p> <br>
     <p> CPF: {{item.cpf}}</p>
+    <a href="{{url_for('editar_funcionario', id_funcionario=item.id_funcionario)}}"> EDITAR</a>
 </div>
+
 {% endfor %}
 
 {% endblock conteudo %}

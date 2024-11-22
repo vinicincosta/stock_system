@@ -1,0 +1,21 @@
+{% extends 'template.html' %}
+
+
+{% block conteudo %}
+{{funcionario}}
+<form action="{{url_for('editar_funcionario', id_funcionario=funcionario.id)}}" method="POST">
+    <label>Nome </label>
+    <input type="text" name="form_nome" value="{{funcionario.nome}}" required>
+
+    <label>Salario </label>
+    <input type="text" name="form_salario" value="{{funcionario.salario}}" required>
+
+
+    <button> Atualizar</button>
+    <button><a href="{{url_for('funcionario')}}"> Cancelar</a></button>
+</form>
+
+
+
+
+{% endblock conteudo %}

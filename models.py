@@ -1,8 +1,6 @@
 # importar bibliotecas
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Float
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Float, select
 from sqlalchemy.orm import scoped_session, sessionmaker, relationship, declarative_base
-
-from werkzeug.security import generate_password_hash, check_password_hash
 
 engine = create_engine('sqlite:///nome.sqlite3')
 db_session = scoped_session(sessionmaker(bind=engine))
@@ -18,24 +16,37 @@ class Produto(Base):
     nome = Column(String(40), nullable=False, index=True)
     descricao = Column(String(80), nullable=False, index=True, )
     quantidade_produto = Column(Integer, nullable=False, )
-    preco = Column(String, nullable=False, unique=True)
-    categoria_id = Column(String, nullable=False, unique=True)
-    categoria_name = Column(String, ForeignKey('categoria.name_categoria'))
+    preco = Column(Float, nullable=False, index=True)
+    categoria_id = Column(String, ForeignKey('categoria.id'))
 
     # representação classe
+    def verificar_volume(self, volume_movimentacao):
+        # o self serve para puxar dele mesmo
+        if self.quantidade_produto >= volume_movimentacao:
+            return True
+        else:
+            return False
+
+
     def __repr__(self):
-        return ('<Produto: nome: {} descricao: {}  quantidade_produto: {} preço: {}categoria name: {} categoria_id:{}>'.format(self.nome, self.descricao,
-                                            self.quantidade_produto, self.preco,
-                                            self.categoria_name, self.categoria_id))
+        return ('<Produto: nome: {} descricao: {}  preço: {}'
+                ' categoria_id:{} quantidade_produto: {}>'.format(self.nome, self.descricao,
+                                                                  self.preco,
+                                                                  self.categoria_id, self.quantidade_produto))
         # função para salvar no banco
+
+
     def save(self):
         db_session.add(self)
         db_session.commit()
 
         # função para deletar
+
+
     def delete(self):
         db_session.delete(self)
         db_session.commit()
+
 
     def serialize_produto(self):
         dados_produto = {
@@ -44,48 +55,53 @@ class Produto(Base):
             "descricao": self.descricao,
             "quantidade_produto": self.quantidade_produto,
             "preco": self.preco,
-            "categoria_name": self.categoria_name,
             "categoria_id": self.categoria_id
-            }
+        }
         return dados_produto
 
-    # class funcionários
+        # class funcionários
+
+
 class Funcionario(Base):
     __tablename__ = 'funcionario'
     nome = Column(String(40), nullable=False, index=True)
     id = Column(Integer, primary_key=True, unique=True)
     cpf = Column(String(11), nullable=False, index=True, unique=True)
-    salario = Column(Float, nullable=False, index=False)
+    salario = Column(String, nullable=False, index=False)
 
     # Senha Login
     # passaword = Column(String, nullable=False, inde=True)
     # username = Column(String, nullable=False, inde=True)
 
     def __repr__(self):
-        return ('<Funcionario: nome: {}  cpf: {}  salario: {}  id:{}>'.
-                format(self.nome, self.cpf, self.salario,
-                       self.id))
+        return ('<Funcionario: nome: {}  cpf: {}  salario: {}>'.
+                format(self.nome, self.cpf, self.salario
+                       ))
 
-    # função para salvar no banco
+        # função para salvar no banco
+
     def save(self):
         db_session.add(self)
         db_session.commit()
 
-    # função para deletar
+        # função para deletar
+
     def delete(self):
         db_session.delete(self)
         db_session.commit()
 
     def serialize_funcionario(self):
         dados_funcionario = {
-            "id": self.id,
+            "id_funcionario": self.id,
             "nome": self.nome,
             "cpf": self.cpf,
             "salario": self.salario,
         }
         return dados_funcionario
 
-# class movimentação
+    # class movimentação
+
+
 class Movimentacao(Base):
     __tablename__ = 'movimentacao'
     id = Column(Integer, primary_key=True)
@@ -96,23 +112,6 @@ class Movimentacao(Base):
 
     movimentacao_produto = relationship(Produto, backref='movimentacoes')
     movimentacao_funcionario = relationship(Funcionario, backref='movimentacoes')
-
-    def aplicar_movimentacao(self):
-        produto = Produto.query.get(self.produto_movimentado)
-        if not produto:
-            return "Produto não encontrado"
-
-        if self.atividade == 'entrada':
-            produto.quantidade_produto += self.volume_movimentacao
-        elif self.atividade == 'saida':
-            if produto.quantidade_produto >= self.volume_movimentacao:
-                produto.quantidade_produto -= self.volume_movimentacao
-            else:
-                return "Quantidade insuficiente em estoque"
-
-        produto.save()
-        self.save()
-        return f"Movimentação de {self.volume_movimentacao} unidades realizada para {self.atividade}"
 
     def __repr__(self):
         return '<Movimentacao: id: {} atividade: {} volume_movimentacao: {} produto: {} funcionário: {}>'.format(
@@ -144,7 +143,7 @@ class Movimentacao(Base):
 class Categoria(Base):
     __tablename__ = 'categoria'
     id = Column(Integer, primary_key=True)
-    nome_classificacao = Column(String(20), nullable=False)
+    name_categoria = Column(String(20), nullable=False)
 
     def __repr__(self):
         return '<Categoria: name_categoria: {} id: {}>'.format(self.name_categoria, self.id)
@@ -159,10 +158,11 @@ class Categoria(Base):
 
     def serialize_Categoria(self):
         dados_Categoria = {
-            "id_Categoria": self.id,
-            "name_classificacao": self.name_categoria,
+            "id": self.id,
+            "name_categoria": self.name_categoria,
         }
         return dados_Categoria
+
 
 class Movimentacao_Produto(Base):
     __tablename__ = 'movimentacao_produto'
@@ -189,24 +189,15 @@ class Movimentacao_Produto(Base):
 
     def serialize_movimentacao_produto(self):
         dados_movimentacao_produto = {
-            "id": self.id,
+            #   "id": self.id,
             "id_movimentacao": self.id,
             "id_produto": self.id
         }
         return dados_movimentacao_produto
 
+
 def init_db():
     Base.metadata.create_all(bind=engine)
-
-
-
-
-
-
-
-
-
-
 
 
 if __name__ == '__main__':

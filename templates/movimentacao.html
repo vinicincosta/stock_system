@@ -14,14 +14,16 @@
     </thead>
     <tbody>
     <!-- Exemplo de como os dados podem ser renderizados dinamicamente -->
-    {% for movimentacao in movimentacoes %}
+    {% for m, p,f in movimentacoes %}
     <tr>
-        <td>{{ movimentacao.id }}</td>
-        <td>{{ movimentacao.volume_movimentacao }}</td>
-        <td>{{ movimentacao.atividade }}</td>
-        <td>{{ movimentacao.produto_movimentado }}</td>
-        <td>{{ movimentacao.funcionario_movimentado }}</td>
+        <td>{{ m.id }}</td>
+        <td>{{ m.volume_movimentacao }}</td>
+        <td>{{ m.atividade }}</td>
+        <td>{{ p.nome }}</td>
+        <td>{{ f.nome }}</td>
+<!--        <td><a href="{{url_for('editar_movimentacao', id_movimentacao=m.id)}}"> EDITAR</a></td>-->
     </tr>
+
     {% endfor %}
     </tbody>
 </table>

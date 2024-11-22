@@ -1,0 +1,46 @@
+{% extends 'template.html' %}
+
+
+{% block conteudo %}
+<H2> ESTOQUE </H2>
+<div class="lista">
+
+    <br>
+
+    <div class="produto">
+<!--        <h2> Produto</h2>-->
+        <br>
+        <a href="{{url_for('produto')}}" class="imagem_template"> <!-- Link para a página inicial -->
+            <img class="caracteristicas" src="/static/produto.png" alt="Ícone da casa">
+        </a>
+    </div>
+
+    <div class="produto">
+<!--        <h2> Funcionário</h2>-->
+        <br>
+        <a href="{{url_for('funcionario')}}" class="imagem_template"> <!-- Link para a página inicial -->
+            <img class="caracteristicas" src="/static/funcionario.jpg" alt="Ícone da casa">
+        </a>
+    </div>
+
+    <div class="produto">
+<!--        <h2> Movimentação</h2>-->
+        <br>
+        <a href="{{url_for('movimentacao')}}" class="imagem_template"> <!-- Link para a página inicial -->
+            <img class="caracteristicas" src="/static/movimentacao.png" alt="Ícone da casa">
+        </a>
+    </div>
+
+    <div class="produto">
+<!--        <h2> Categoria</h2>-->
+        <br>
+        <a href="{{url_for('categoria')}}" class="imagem_template"> <!-- Link para a página inicial -->
+            <img class="caracteristicas" src="/static/categoria.png" alt="Ícone da casa">
+        </a>
+    </div>
+
+
+</div>
+
+
+{% endblock conteudo %}
