@@ -1,12 +1,46 @@
 # importar bibliotecas
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Float, select
 from sqlalchemy.orm import scoped_session, sessionmaker, relationship, declarative_base
+# login
+from flask_login import UserMixin
 
 engine = create_engine('sqlite:///nome.sqlite3')
 db_session = scoped_session(sessionmaker(bind=engine))
 
 Base = declarative_base()
 Base.query = db_session.query_property()
+
+
+class Usuario(UserMixin, Base):
+    __tablename__ = 'usuario'
+    id = Column(Integer, primary_key=True)
+    nome = Column(String)
+    senha = Column(String)
+
+    def __repr__(self):
+        return ('<Usuário: nome: {}  senha: {}>'.
+                format(self.nome, self.senha
+                       ))
+
+        # função para salvar no banco
+
+    def save(self):
+        db_session.add(self)
+        db_session.commit()
+
+        # função para deletar
+
+    def delete(self):
+        db_session.delete(self)
+        db_session.commit()
+
+    def serialize_usuario(self):
+        dados_usuario = {
+            "id": self.id,
+            "nome": self.nome,
+            "senha": self.senha,
+        }
+        return dados_usuario
 
 
 # projeto pessoas que tem atividades
@@ -27,7 +61,6 @@ class Produto(Base):
         else:
             return False
 
-
     def __repr__(self):
         return ('<Produto: nome: {} descricao: {}  preço: {}'
                 ' categoria_id:{} quantidade_produto: {}>'.format(self.nome, self.descricao,
@@ -35,18 +68,15 @@ class Produto(Base):
                                                                   self.categoria_id, self.quantidade_produto))
         # função para salvar no banco
 
-
     def save(self):
         db_session.add(self)
         db_session.commit()
 
         # função para deletar
 
-
     def delete(self):
         db_session.delete(self)
         db_session.commit()
-
 
     def serialize_produto(self):
         dados_produto = {
@@ -99,7 +129,7 @@ class Funcionario(Base):
         }
         return dados_funcionario
 
-    # class movimentação
+        # class movimentação
 
 
 class Movimentacao(Base):

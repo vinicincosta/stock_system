@@ -1,23 +1,91 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from sqlalchemy import select
+from sqlalchemy.testing.pickleable import User
+
 # import matplotlib.pyplot as plt
 from models import *
 
 from flask import Flask, render_template, request, redirect, url_for
+from flask_login import LoginManager, login_user, login_required, logout_user
+import hashlib
 
 app = Flask(__name__)
-
+ln = LoginManager(app)
+ln.login_view = 'login'
 app.config['SECRET_KEY'] = "SECRET"
+# estrtura login
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
 
+def hash(txt):
+    hash_obj = hashlib.sha256(txt.encode('utf-8'))
+    return hash_obj.hexdigest()
+
+
+@ln.user_loader
+def user_loader(id):
+    usario = db_session.query(Usuario).filter_by(id=id).first()
+    return usario
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+    elif request.method == 'POST':
+        nome = request.form['nomeForm']
+        senha = request.form['senhaForm']
+
+        user = db_session.query(Usuario).filter_by(nome=nome, senha=hash(senha)).first()
+        if not user:
+            return 'Nome ou senha incorretos'
+
+        login_user(user)
+        return redirect(url_for('template'))
+
+    else:
+        flash(message=" Verifique se os dados estão inseridos corretamente")
+    return render_template('login.html')
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'GET':
+        return render_template('registrar.html')
+    elif request.method == 'POST':
+        nome = request.form['nomeForm']
+        senha = request.form['senhaForm']
+
+        novo_usuario = Usuario(nome=nome, senha=hash(senha))
+        db_session.add(novo_usuario)
+        db_session.commit()
+
+        login_user(novo_usuario)
+
+        return redirect(url_for('template'))
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+
+
+# redirecionar login
 @app.route('/')
 def template():
-    return render_template('template.html')
+    return render_template('login.html')
+
 
 @app.route('/suporte')
 def suporte():
     return render_template('suporte.html')
 
+
+@app.route('/estoque')
+def estoque():
+    return render_template('estoque.html')
 
 
 @app.route('/produto', methods=['GET'])
@@ -44,7 +112,7 @@ def criar_produto():
     sql_categoria = select(Categoria)
     resultado_categoria = db_session.execute(sql_categoria).scalars()
     # quando clicar no botao de salva
-    if request.method == "POST": # Enviar no banco
+    if request.method == "POST":  # Enviar no banco
 
         if (not request.form['form_nome']
                 or not request.form['form_descricao']
@@ -183,12 +251,6 @@ def criar_funcionario():
     return render_template('novo_funcionario.html')
 
 
-
-
-
-
-
-
 @app.route('/categoria', methods=['GET'])
 def categoria():
     sql_categoria = select(Categoria)
@@ -213,18 +275,12 @@ def criar_categoria():
             print(form_nova_categoria)
             form_nova_categoria.save()
             db_session.close()
-            flash("Evento criado !!!", "success")
+            flash("Categoria criada!!!", "success")
 
             # dentro do url sempre chamar função
             return redirect(url_for("categoria"))
             # sempre no render chamar html
     return render_template('nova_categoria.html')
-
-
-
-
-
-
 
 
 # @app.route('/movimentacao', methods=['GET'])
@@ -237,9 +293,6 @@ def criar_categoria():
 #         print((lista_movimentacao[-1]))
 #     return render_template('categoria.html',
 #                            lista_movimentacao=lista_movimentacao)
-
-
-
 
 
 # @app.route('/nova_movimentacao',  methods=['POST', 'GET'])
@@ -271,59 +324,49 @@ def criar_categoria():
 @app.route('/cadastrar_movimentacao', methods=['GET', 'POST'])
 def criar_movimentacao():
     sql_produto = select(Produto)
-    resultado_produto = db_session.execute(sql_produto).scalar()
+    resultado_produtos = db_session.execute(sql_produto).scalars()
+
     sql_funcionario = select(Funcionario)
-    resultado_funcionario = db_session.execute(sql_funcionario).scalars()
+    resultado_funcionarios = db_session.execute(sql_funcionario).scalars()
+
     if request.method == 'POST':
         volume = int(request.form['volume_movimentacao'])
         atividade = request.form['atividade']
         produto_id = int(request.form['produto_movimentado'])
         funcionario_id = int(request.form['funcionario_movimentado'])
 
-        if not produto:
+        # select para buscar o produto do id encima
+        resultado_produto = db_session.execute(select(Produto).filter_by(id=int(produto_id))).scalar()
+
+        if not resultado_produto:
             return "Produto não encontrado"
 
+        movimentacao = Movimentacao(
+            volume_movimentacao=volume,
+            atividade=atividade,
+            produto_movimentado=produto_id,
+            funcionario_movimentado=funcionario_id
+        )
         if atividade == 'saida':
-            if resultado_produto.verificar_volume():
-                movimentacao = Movimentacao(
-                    volume_movimentacao=volume,
-                    atividade=atividade,
-                    produto_movimentado=produto_id,
-                    funcionario_movimentado=funcionario_id
-                )
-                return redirect(url_for('movimentacao'))
-
-        elif atividade =="entrada":
-            if resultado_produto.verificar_volume():
-                movimentacao = Movimentacao(
-                    volume_movimentacao=volume,
-                    atividade=atividade,
-                    produto_movimentado=produto_id,
-                    funcionario_movimentado=funcionario_id
-                )
-
-
-
-            if atividade == 'saida':
-                # Checar se há quantidade suficiente no estoque
-                if produto.quantidade_produto < volume:
-                    return f"Estoque insuficiente. Disponível: {produto.quantidade_produto} unidades.", 400
-
+            # Checar se há quantidade suficiente no estoque
+            if resultado_produto.verificar_volume(volume_movimentacao=volume):
                 # Atualizar estoque para saída
-                produto.quantidade_produto -= volume
-            elif atividade == 'entrada':
-                # Atualizar estoque para entrada
-                produto.quantidade_produto += volume
+                resultado_produto.quantidade_produto -= volume
+                movimentacao.save()
+                resultado_produto.save()
+                return redirect(url_for('movimentacao'))
             else:
-                return "Atividade inválida. Escolha 'entrada' ou 'saida'.", 400
+                flash(f"Estoque insuficiente. Disponível: {resultado_produto.quantidade_produto} unidades.", "error")
 
-
-
-        elif False:
-            return f"Estoque insuficiente. Disponível: {produto.quantidade_produto} unidades.",
-
-    return render_template('nova_movimentacao.html',
-                           produtos=resultado_produto, funcionarios=resultado_funcionario)
+        elif atividade == "entrada":
+            # Atualizar estoque para entrada
+            resultado_produto.quantidade_produto += volume
+            movimentacao.save()
+            resultado_produto.save()
+            return redirect(url_for('movimentacao'))
+        else:
+            flash("Atividade inválida. Escolha 'entrada' ou 'saida'.", 'error')
+    return render_template('nova_movimentacao.html', produtos=resultado_produtos, funcionarios=resultado_funcionarios)
 
 
 @app.route('/editar_movimentacao/<int:id_movimentacao>', methods=['POST', 'GET'])
@@ -428,6 +471,10 @@ def editar_categoria(id_categoria):
 #
 #     return render_template('nova_movimentacao.html',
 #                            produtos=resultado_produto, funcionarios=resultado_funcionario)
+
+@app.route('/home')
+def home():
+    return render_template('home.html')
 
 
 if __name__ == '__main__':
