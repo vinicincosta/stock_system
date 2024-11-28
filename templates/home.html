@@ -2,6 +2,13 @@
 
 {% block conteudo %}
 
+<!--{% if current_user.is_authenticated %}-->
+<!--    <h1> Você está logado.Olá, {{current_user.nome}}</h1>-->
+<!--{% else %}-->
+<!--    <h1> Você não está logado</h1>-->
+<!--{% endif %}-->
+
+
 <div class="conteudo_dash">
     <h3>
         <strong>
@@ -15,7 +22,7 @@
 <div class="container_dash_consulta">
     <div class="card">
         {% if lista_funcionario %}
-        <h4> CONSULTA</h4>
+        <h4> SALÁRIO</h4>
         <hr>
         <br>
         <p> Nome:{{lista_funcionario.0.nome}} </p><br>
@@ -58,5 +65,4 @@
             <input type="submit" value="Cadastrar">
         </form>
     </div>
-
-    {% endblock conteudo %}
+{% endblock conteudo %}

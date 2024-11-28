@@ -17,6 +17,27 @@ app.config['SECRET_KEY'] = "SECRET"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
 
+@app.route('/home')
+
+def home():
+    sql_salario = select(Funcionario)
+    resultado_funcionario = db_session.execute(sql_salario).scalars()
+    lista_funcionario = []
+    for n in resultado_funcionario:
+        lista_funcionario.append(n.serialize_funcionario())
+        print(lista_funcionario[-1])
+
+    sql_categoria = select(Categoria)
+    resultado_categoria = db_session.execute(sql_categoria).scalars()
+    lista_categoria = []
+    for n in resultado_categoria:
+        lista_categoria.append(n.serialize_Categoria())
+        print(lista_categoria[-1])
+    return render_template('home.html',
+                           lista_funcionario=lista_funcionario, lista_categoria=lista_categoria
+                           )
+
+
 def hash(txt):
     hash_obj = hashlib.sha256(txt.encode('utf-8'))
     return hash_obj.hexdigest()
@@ -49,7 +70,7 @@ def login():
 
 
 @app.route('/register', methods=['GET', 'POST'])
-def register():
+def registrar():
     if request.method == 'GET':
         return render_template('registrar.html')
     elif request.method == 'POST':
@@ -69,13 +90,13 @@ def register():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('home'))
+    return redirect(url_for('home.html'))
 
 
 # redirecionar login
 @app.route('/')
 def template():
-    return render_template('login.html')
+    return render_template('template.html')
 
 
 @app.route('/suporte')
@@ -282,45 +303,6 @@ def criar_categoria():
             # sempre no render chamar html
     return render_template('nova_categoria.html')
 
-
-# @app.route('/movimentacao', methods=['GET'])
-# def movimentacao():
-#     sql_movimentacao = select(Movimentacao)
-#     resultado_movimentacao = db_session.execute(sql_movimentacao).scalars()
-#     lista_movimentacao = []
-#     for n in resultado_movimentacao:
-#         lista_movimentacao.append(n.serialize_Categoria())
-#         print((lista_movimentacao[-1]))
-#     return render_template('categoria.html',
-#                            lista_movimentacao=lista_movimentacao)
-
-
-# @app.route('/nova_movimentacao',  methods=['POST', 'GET'])
-# def criar_movimentacao():
-#     if request.method == "POST":
-#
-#         if (not request.form['form_volume_movimentacao']
-#                 or not request.form['form_atividade']
-#                 or not request.form['form_produto_movimentado']
-#         or not request.form['funcionario_movimentado']):
-#             flash("Preencher todos os campos", "error")
-#         else:
-#             form_nova_movimentacao = Movimentacao(volume_movimentacao=int(request.form["form_volume_movimentacao"]),
-#                                                 atividade=request.form["form_atividade"],
-#                                                 produto_movimentado=int((request.form['form_produto_movimentado'])),
-#                                                 funcionario_movimentado=int((request.form['funcionario_movimentado']))
-#                                                 )
-#             print(form_nova_movimentacao)
-#             form_nova_movimentacao.save()
-#             db_session.close()
-#             flash("Evento criado !!!", "success")
-#
-#             # dentro do url sempre chamar função
-#             return redirect(url_for("movimentacao"))
-#     # sempre no render chamar html
-#     return render_template('nova_movimentacao.html')
-
-
 @app.route('/cadastrar_movimentacao', methods=['GET', 'POST'])
 def criar_movimentacao():
     sql_produto = select(Produto)
@@ -434,47 +416,6 @@ def editar_categoria(id_categoria):
                 flash(f"Erro {Exception}", "error")
     return render_template('editar_categoria.html', categoria=categoria_resultado)
 
-
-# @app.route('/dashboard_estoque')
-# def dashboard_estoque():
-#     sql_produto = select(Produto)
-#     resultado_produto = db_session.execute(sql_produto).scalars()
-#
-#     produtos = []
-#     quantidades = []
-#     for produto in resultado_produto:
-#         produtos.append(produto.nome)
-#         quantidades.append(produto.quantidade_produto)
-#
-#     return render_template('dashboard.html', produtos=produtos, quantidades=quantidades)
-
-# @app.route('/cadastrar_movimentacao', methods=['GET', 'POST'])
-# def criar_movimentacao():
-#     sql_produto = select(Produto)
-#     resultado_produto = db_session.execute(sql_produto).scalars()
-#     sql_funcionario = select(Funcionario)
-#     resultado_funcionario = db_session.execute(sql_funcionario).scalars()
-#     if request.method == 'POST':
-#         volume = int(request.form['volume_movimentacao'])
-#         atividade = request.form['atividade']
-#         produto_id = int(request.form['produto_movimentado'])
-#         funcionario_id = int(request.form['funcionario_movimentado'])
-#
-#         movimentacao = Movimentacao(
-#             volume_movimentacao=volume,
-#             atividade=atividade,
-#             produto_movimentado=produto_id,
-#             funcionario_movimentado=funcionario_id
-#         )
-#         movimentacao.aplicar_movimentacao()  # Método que ajusta o estoque e salva a movimentação
-#         return redirect(url_for('movimentacao'))
-#
-#     return render_template('nova_movimentacao.html',
-#                            produtos=resultado_produto, funcionarios=resultado_funcionario)
-
-@app.route('/home')
-def home():
-    return render_template('home.html')
 
 
 if __name__ == '__main__':

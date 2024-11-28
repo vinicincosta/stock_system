@@ -2,7 +2,7 @@
 
 
 {% block conteudo %}
-{{produto}}
+
 <form action="{{url_for('editar_produto', id_produto=produto.id)}}" method="POST">
     <label>Nome </label>
     <input type="text" name="form_nome" value="{{produto.nome}}" required>

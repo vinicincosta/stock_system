@@ -18,7 +18,7 @@ a {
 }
 
 a:hover {
-    color: #4a148c; /* Roxo ainda mais escuro ao passar o mouse */
+    color: white; /* Roxo ainda mais escuro ao passar o mouse */
     text-decoration: underline; /* Sublinha ao passar o mouse */
 }
 
@@ -30,6 +30,16 @@ header {
     font-weight: bold;
     color: #ffffff; /* Texto branco para contraste */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave para destaque */
+}
+
+header p{
+    font-size: 12px;
+    color: #1e1e1e;
+}
+.lista1{
+    font-size: 60px;
+    font-family: Inter;
+    margin: 10px 70px 10px 20px ;
 }
 
 body {
@@ -47,12 +57,18 @@ nav {
     width: 250px; /* Largura fixa do menu */
     height: 100vh; /* Altura total da tela */
     position: fixed; /* Fixa o nav na lateral */
-    top: 0; /* Alinha ao topo */
+    /*top: 0; !* Alinha ao topo *!*/
     left: 0; /* Alinha à esquerda */
     padding-top: 20px;
-    overflow-y: auto; /* Permite rolagem se necessário */
+    /*overflow-y: auto; !* Permite rolagem se necessário *!*/
     display: flex;
     flex-direction: column; /* Flexbox para distribuir os links verticalmente */
+}
+
+.topo_nav{
+    margin: 18px;
+    font-size: 18px;
+    color: #4D83F0;
 }
 
 nav a {
@@ -320,18 +336,13 @@ header img {
     margin: 0 10px; /* Adiciona margem horizontal entre as imagens */
 }
 
-.lista {
-    display: flex;
-    width: 100%;
-    justify-content: center; /* Centraliza as imagens horizontalmente */
-    align-items: center; /* Centraliza as imagens verticalmente */
-}
+
 
 .saudacao {
     font-size: 26px; /* Aumenta o tamanho do texto */
     font-weight: bold; /* Torna o texto mais forte */
     text-align: center;
-    color: #5a5a3e; /* Verde amarronzado */
+    color:white; /* Verde amarronzado */
     font-family: 'Georgia', serif;
     width: 80%; /* Ocupa mais espaço horizontalmente */
     margin: 0 auto 50px; /* Centraliza horizontalmente e ajusta a margem inferior */
@@ -340,7 +351,7 @@ header img {
 .duvida {
     max-width: 40%; /* Reduz a largura da imagem */
     height: auto;
-    border: 4px solid #6b8e23; /* Verde oliva mais escuro */
+    border: 4px solid rebeccapurple; /* Verde oliva mais escuro */
     border-radius: 10px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
     margin: 20px 0 20px 20px; /* Ajusta as margens para afastar da borda direita */
@@ -554,61 +565,67 @@ table {
     margin: 20px 0; /* Margem superior e inferior */
     font-size: 16px; /* Tamanho do texto */
     font-family: 'Arial', sans-serif;
-    background-color: #f6f0fa; /* Fundo roxo muito claro */
-    border-radius: 10px; /* Bordas arredondadas */
+    background-color: #f0f7ff; /* Fundo azul claro pastel */
+    color: #3f3d6d; /* Texto roxo escuro */
+    border-radius: 12px; /* Bordas arredondadas */
     overflow: hidden; /* Remove excessos visuais nos cantos */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil para profundidade */
+    box-shadow: 0 4px 15px rgba(80, 120, 200, 0.3); /* Sombra azul suave */
 }
 
 /* Cabeçalho da tabela */
 thead {
-    background-color: #d1c4e9; /* Roxo claro */
-    color: #4a3f7a; /* Roxo escuro para contraste */
+    background: linear-gradient(90deg, #7b6bcf, #5b95d6); /* Gradiente de roxo para azul */
+    color: #ffffff; /* Texto branco */
     font-weight: bold;
+    text-transform: uppercase; /* Texto em maiúsculas */
 }
 
 thead th {
     padding: 15px; /* Espaçamento interno */
     text-align: center; /* Centraliza o texto */
     font-size: 18px; /* Tamanho da fonte do cabeçalho */
-    border-bottom: 2px solid #b39ddb; /* Linha inferior roxa */
+    border-bottom: 3px solid #a3c2f5; /* Linha inferior azul clara */
 }
 
 /* Corpo da tabela */
 tbody tr {
-    border-bottom: 1px solid #e0d8f1; /* Linha separadora */
-    transition: background-color 0.2s ease; /* Transição suave no hover */
+    border-bottom: 1px solid #d6e5f8; /* Linha separadora azul claro */
+    transition: background-color 0.3s ease; /* Transição suave no hover */
 }
 
 tbody tr:nth-child(even) {
-    background-color: #ebe3f6; /* Fundo alternado (roxo muito claro) */
+    background-color: #eaf0ff; /* Fundo alternado azul muito claro */
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f8f3fc; /* Fundo alternado roxo muito claro */
 }
 
 tbody tr:hover {
-    background-color: #d1c4e9; /* Destaque roxo claro ao passar o mouse */
+    background-color: #cbd7f0; /* Destaque azul claro ao passar o mouse */
 }
 
 tbody td {
     padding: 12px 15px; /* Espaçamento interno */
     text-align: center; /* Centraliza o texto */
-    color: #4a3f7a; /* Texto em roxo escuro */
+    color: #3f3d6d; /* Texto em roxo escuro */
 }
 
 /* Estilo para links (Editar) */
 tbody td a {
     text-decoration: none; /* Remove o sublinhado */
-    color: #7e57c2; /* Roxo médio */
+    color: #5b8bd6; /* Azul vibrante */
     font-weight: bold;
-    transition: color 0.2s ease;
+    transition: color 0.3s ease;
 }
 
 tbody td a:hover {
-    color: #5e35b1; /* Roxo mais escuro no hover */
+    color: #7b6bcf; /* Roxo vibrante no hover */
 }
 
 /* Ajustes visuais para o container geral da tabela */
 table {
-    border: 1px solid #d1c4e9; /* Borda suave */
+    border: 2px solid #a3c2f5; /* Borda azul clara */
 }
 
 /*!* Responsividade *!*/
