@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-from sqlalchemy import select
+from sqlalchemy import select, func, desc
 from sqlalchemy.testing.pickleable import User
 
 # import matplotlib.pyplot as plt
 from models import *
-
+import plotly.express as px
+import plotly.io as pio
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user
 import hashlib
@@ -137,16 +138,15 @@ def criar_produto():
 
         if (not request.form['form_nome']
                 or not request.form['form_descricao']
-                or not request.form['form_quantidade_produto']
                 or not request.form['form_categoria_id']
                 or not request.form['form_preco']):
             flash("Preencher todos os campos", "error")
         else:
             form_novo_produto = Produto(nome=request.form["form_nome"],
                                         descricao=request.form['form_descricao'],
-                                        quantidade_produto=int(request.form['form_quantidade_produto']),
-                                        categoria_name=request.form['form_categoria_id'],
-                                        preco=str(request.form['form_preco'])
+                                        quantidade_produto=0,
+                                        categoria_id=request.form['form_categoria_id'],
+                                        preco=float(request.form['form_preco'])
                                         )
 
             print(form_novo_produto)
@@ -417,6 +417,74 @@ def editar_categoria(id_categoria):
     return render_template('editar_categoria.html', categoria=categoria_resultado)
 
 
+
+@app.route('/dashboard')
+def dashboard():
+    # Buscar os 3 funcionários com os maiores salários no departamento "estoque"
+    funcionarios_estoque = (
+        Funcionario.query
+        .order_by(Funcionario.salario.desc())
+        .limit(3)
+        .all()
+    )
+    produtos_movimentados = produtos_mais_movimentados()
+
+    return render_template("dashboard.html", lista_funcionario=funcionarios_estoque,
+                           produtos_movimentados=produtos_movimentados)
+
+def produtos_mais_movimentados():
+    # Consulta para contar as movimentações por produto
+    produtos_movimentados = (
+        db_session.query(
+            Produto.nome,
+            func.sum(Movimentacao.volume_movimentacao).label('total_movimentacoes')
+        )
+        .join(Movimentacao, Produto.id == Movimentacao.produto_movimentado)
+        .where(Movimentacao.atividade == 'saida')
+        .group_by(Movimentacao.produto_movimentado)
+        .order_by(desc('total_movimentacoes'))
+        .limit(3)
+        .all()
+    )
+
+    # Verificando se os dados estão sendo retornados
+    print(produtos_movimentados)
+
+    # Renderizar os resultados no dashboard
+    return produtos_movimentados
+
+@app.route('/dashboard_gf', methods=['GET', 'POST'])
+def dashboard_func():
+    resultados = (
+        db_session.query(
+            Funcionario.id.label("funcionario_id"),
+            Funcionario.nome.label('funcionario_nome'),
+            func.count(Movimentacao.id).label('total_movimentacoes')
+        )
+        .join(Movimentacao, Funcionario.id == Movimentacao.funcionario_movimentado)
+        .group_by(Funcionario.id, Funcionario.nome)
+        .order_by(desc('total_movimentacoes'))
+        .limit(6)
+        .all()
+    )
+    print(resultados)
+    labels = []
+    dados = []
+    for id_, nome, num in resultados:
+        print(id_, nome, num)
+        labels.append(nome)
+        dados.append(num)
+    data = {
+        'Funcionários': labels,
+        'Nº de movimentações': dados
+    }
+    print(data)
+    # criando gráfico com plotly express
+
+    fig = px.histogram(data, x='Funcionários', y='Nº de movimentações', color='Funcionários', template='seaborn')
+    #convertendo grafico em html
+    graph_html = pio.to_html(fig, full_html=False)
+    return render_template('dashboard_gf.html', home_=False, graph_html=graph_html)
 
 if __name__ == '__main__':
     app.run(debug=True)

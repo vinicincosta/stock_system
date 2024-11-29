@@ -97,14 +97,15 @@ class Funcionario(Base):
     nome = Column(String(40), nullable=False, index=True)
     id = Column(Integer, primary_key=True, unique=True)
     cpf = Column(String(11), nullable=False, index=True, unique=True)
-    salario = Column(String, nullable=False, index=False)
+    salario = Column(Float, nullable=False, index=False)
+
 
     # Senha Login
     # passaword = Column(String, nullable=False, inde=True)
     # username = Column(String, nullable=False, inde=True)
 
     def __repr__(self):
-        return ('<Funcionario: nome: {}  cpf: {}  salario: {}>'.
+        return ('<Funcionario: nome: {}  cpf: {}  salario: {} >'.
                 format(self.nome, self.cpf, self.salario
                        ))
 
@@ -126,6 +127,7 @@ class Funcionario(Base):
             "nome": self.nome,
             "cpf": self.cpf,
             "salario": self.salario,
+
         }
         return dados_funcionario
 

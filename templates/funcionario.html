@@ -3,9 +3,9 @@
 {% block conteudo %}
 
 {% for item in lista_funcionario %}
-<div class="conteudo">
-    <p> Nome:{{item.nome}} </p><br>
-    <p> Salário: {{item.salario}} </p> <br>
+<div class="conteudo_funcionario">
+    <p> Nome:{{item.nome}} </p>
+    <p> Salário: {{item.salario}} </p>
     <p> CPF: {{item.cpf}}</p>
     <a href="{{url_for('editar_funcionario', id_funcionario=item.id_funcionario)}}"> EDITAR</a>
 </div>

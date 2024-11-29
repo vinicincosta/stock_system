@@ -16,8 +16,8 @@
         <div class="lista1"><strong>STOCK SYSTEM</strong></div><br>
 
         <div class="produto">
-            <a href="{{url_for('home')}}" class="imagem_template"> <!-- Link para a página inicial -->
-                <img class="caracteristicas" src="/static/home.webp" alt="Ícone da casa">
+            <a href="{{url_for('dashboard')}}"> <!-- Link para a página dashboard -->
+                <img class="icone" src="/static/home.png" alt="Ícone da casa">
             </a>
             <p>página inicial</p>
         </div>
@@ -83,6 +83,8 @@
 
         <!--        <a href="{{url_for('movimentacao')}}"> MOVIMENTAÇÕES CADASTRADAS</a>-->
         <a href="{{url_for('criar_movimentacao')}}"> Movimentação</a>
+
+
 
 
     </nav>

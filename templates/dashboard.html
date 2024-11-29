@@ -1,7 +1,46 @@
 {% extends 'template.html' %}
 
 {% block conteudo %}
+<h1 style="text-align: start; color: #00bcd4;">Dashboard<br></h1>
+<h1 style="text-align: end; color: #00bcd4;"></h1>
+<div class="dashboard_grafico">
+
+</div>
+<a href="{{url_for('dashboard_func')}}" class="imagem_template"> <!-- Link para a página inicial -->
+    <img class="icone" src="/static/grafico.webp" alt="Ícone da casa">
+</a>
+<p>Gráfico</p>
 
 
+
+    <h1>Maiores Salários:</h1>
+<div class="dashboard_dashboard">
+    {% for item in lista_funcionario %}
+    <div class="conteudo_dashboard">
+        <p><strong>Nome:</strong> {{ item.nome }}</p>
+        <p><strong>Salário:</strong> R$ {{ item.salario | round(2) }}</p>
+        <p><strong>CPF:</strong> {{ item.cpf }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+
+<h1 style="text-align: start; color: #00bcd4;">Produtos com mais retiradas</h1>
+<div class="dashboard">
+    {% for item in produtos_movimentados %}
+    <div class="conteudo_dashboard">
+        <p><strong>Produto:</strong> {{ item[0] }}</p>
+        <p><strong>Movimentações:</strong> {{ item[1] }}</p>
+    </div>
+    {% endfor %}
+</div>
 
 {% endblock conteudo %}
+
+
+
+
+
+
+
+

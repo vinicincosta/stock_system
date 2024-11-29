@@ -32,19 +32,17 @@ header {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave para destaque */
 }
 
-header p{
-    font-size: 12px;
+.titulo{
+    font-size: 60px;
+    font-family: "Baskerville Old Face", serif;
+    font-weight: bold;
+    margin: 0px 80px 0px 30px;
     color: #1e1e1e;
 }
-.lista1{
-    font-size: 60px;
-    font-family: Inter;
-    margin: 10px 70px 10px 20px ;
-}
 
-body {
-    display: flex;
-    flex-direction: column; /* Coluna para garantir que o header fique no topo */
+
+header img {
+    margin: 10px 20px 10px 20px; /* Adiciona margem horizontal entre as imagens */
 }
 
 .wrapper {
@@ -65,7 +63,7 @@ nav {
     flex-direction: column; /* Flexbox para distribuir os links verticalmente */
 }
 
-.topo_nav{
+.topo_nav {
     margin: 18px;
     font-size: 18px;
     color: #4D83F0;
@@ -134,24 +132,6 @@ button:hover {
 
 
 
-/* Estilos para ícones de casa */
-.imagem_template {
-    display: inline-block;
-    border-radius: 50%; /* Formato circular */
-    height: 50px;
-    width: 50px;
-    background-color: #7b1fa2; /* Fundo roxo */
-    text-align: left;
-    line-height: 50px; /* Centraliza verticalmente */
-    color: white; /* Texto branco */
-    margin-right: 20px;
-    margin-left: 10px; /* Espaço entre ícones */
-
-}
-
-.imagem_template:hover {
-    transform: scale(1.05); /* Efeito de aumento ao passar o mouse */
-}
 
 
 .conteudo {
@@ -336,13 +316,11 @@ header img {
     margin: 0 10px; /* Adiciona margem horizontal entre as imagens */
 }
 
-
-
 .saudacao {
     font-size: 26px; /* Aumenta o tamanho do texto */
     font-weight: bold; /* Torna o texto mais forte */
     text-align: center;
-    color:white; /* Verde amarronzado */
+    color: white; /* Verde amarronzado */
     font-family: 'Georgia', serif;
     width: 80%; /* Ocupa mais espaço horizontalmente */
     margin: 0 auto 50px; /* Centraliza horizontalmente e ajusta a margem inferior */
@@ -371,7 +349,7 @@ header img {
     object-fit: cover; /* Garante que a imagem fique bem ajustada dentro do container */
 }
 
-.duvida_home{
+.duvida_home {
     max-width: 20%; /* Reduz a largura da imagem */
     height: auto;
     border: black;
@@ -415,149 +393,7 @@ form textarea,
 button {
     font-family: 'Roboto', sans-serif;
 }
-nav a:hover {
-    background-color: #311b92; /* Roxo mais escuro no hover */
-}
-.conteudo, .container_dash_consulta {
-    background: #ffffff; /* Fundo branco para um visual limpo e formal */
-    text-align: start;
-    display: inline-block;
-    width: 260px;
-    height: auto; /* Ajuste automático da altura para conteúdo variável */
-    border-radius: 5px; /* Cantos menos arredondados para maior formalidade */
-    font-size: 16px; /* Tamanho de texto menor para maior clareza */
-    padding: 20px; /* Espaçamento interno para maior legibilidade */
-    border: 1px solid #d1d1d1; /* Bordas suaves e discretas */
-    margin: 15px; /* Espaço entre os cards */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra leve para destacar sem exagerar */
-    transition: transform 0.3s, box-shadow 0.3s; /* Transição suave para efeitos */
-    color: #333; /* Texto em cinza escuro */
-    font-family: 'Georgia', serif; /* Fonte com serifa para formalidade */
-}
 
-.conteudo:hover, .container_dash_consulta:hover {
-    transform: scale(1.02); /* Leve aumento ao passar o mouse */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada no hover */
-}
-.container_dash_consulta {
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-    text-align: start;
-    display: inline-block;
-    width: 260px;
-    height: 274px;
-    border-radius: 15px;
-    font-size: 18px;
-    padding: 15px;
-    border: 2px solid rgba(0, 0, 0, 0.5);
-    margin: 20px; /* Maior espaçamento entre os cards */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s;
-    color: black;
-    font-family: Arial, sans-serif;
-    vertical-align: top; /* Alinhamento vertical */
-}
-
-.container_dash_consulta:hover {
-    transform: scale(1.05);
-}
-
-.container_dash_animal {
-    background: linear-gradient(135deg, #a8e063, #56ab2f);
-    text-align: start;
-    display: inline-block;
-    width: 260px;
-    height: 274px;
-    border-radius: 15px;
-    font-size: 18px;
-    padding: 15px;
-    border: 2px solid rgba(0, 0, 0, 0.5);
-    margin: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s;
-    color: black;
-    font-family: Arial, sans-serif;
-    vertical-align: top; /* Alinhamento vertical */
-}
-
-.container_dash_animal:hover {
-    transform: scale(1.05);
-}
-
-
-
-.conteudo_dash {
-    display: inline-block;
-    background: linear-gradient(135deg, rgba(0, 128, 255, 0.8), rgba(128, 0, 255, 0.8));
-    font-size: 22px;
-    text-align: center;
-    border-radius: 10px;
-    border-bottom: black;
-    padding: 15px; /* Mantendo o padding */
-    margin: 10px;
-    color: white;
-}
-
-.conteudo_dash:hover {
-    transform: scale(1.05);
-}
-
-
-.container_dash_consulta,
-.container_dash_animal,
-.container_cadastro_produto {
-    background: linear-gradient(135deg, #bdc3c7, #2c3e50); /* Gradiente suave para combinar com o estilo do nav */
-    color: #fff; /* Texto branco para contraste */
-    font-family: 'Georgia', serif; /* Fonte para consistência */
-    border: 1px solid rgba(44, 62, 80, 0.2); /* Borda sutil para destacar os containers */
-    margin: 20px; /* Espaçamento consistente entre os cards */
-    padding: 20px; /* Padding para melhor alinhamento */
-    border-radius: 12px; /* Bordas levemente arredondadas */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
-    transition: transform 0.3s;
-
-}
-
-
-.container_dash_consulta:hover,
-.container_dash_animal:hover,
-.container_cadastro_produto:hover {
-    transform: scale(1.03); /* Leve efeito de escala para interatividade */
-}
-
-.conteudo_dash {
-    color: #ecf0f1; /* Cinza claro para contraste elegante */
-    font-family: 'Georgia', serif; /* Fonte mais formal */
-    transform: scale(1.03); /* Leve efeito de escala para interatividade */
-}
-
-.container_dash_consulta {
-    height: 300px;
-}
-
-.conteudo_conslta{
-
-}
-
-.container_cadastro_produto {
-    background: linear-gradient(135deg, #bdc3c7, #2c3e50); /* Gradiente suave */
-    color: #ffffff; /* Texto branco para contraste */
-    font-family: 'Georgia', serif; /* Fonte para consistência */
-    border: 1px solid rgba(44, 62, 80, 0.2); /* Borda sutil */
-    margin: 20px; /* Espaçamento consistente com outros cards */
-    padding: 20px; /* Padding adequado */
-    border-radius: 12px; /* Bordas arredondadas suaves */
-    width: 260px; /* Largura consistente */
-    height: auto; /* Ajuste automático da altura */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
-    text-align: start; /* Alinhamento à esquerda para conteúdo */
-    display: inline-block;
-    transition: transform 0.3s, box-shadow 0.3s; /* Transições suaves */
-}
-
-.container_cadastro_produto:hover {
-    transform: scale(1.03); /* Efeito de escala suave */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
-}
 /* Estilo geral da tabela */
 table {
     width: 100%; /* Ocupa toda a largura disponível */
@@ -639,3 +475,371 @@ table {
 /*        padding: 10px; !* Reduz o espaçamento interno *!*/
 /*    }*/
 /*}*/
+
+
+.conteudo_categoria {
+    background: #ffffff; /* Fundo branco para um visual limpo e formal */
+    text-align: start;
+    display: inline-block;
+    width: 250px;
+    height: 100px; /* Ajuste automático da altura para conteúdo variável */
+    border-radius: 5px; /* Cantos menos arredondados para maior formalidade */
+    font-size: 18px; /* Tamanho de texto menor para maior clareza */
+    padding: 20px; /* Espaçamento interno para maior legibilidade */
+    border: 2px solid #d1d1d1; /* Bordas suaves e discretas */
+    margin: 10px; /* Espaço entre os cards */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra leve para destacar sem exagerar */
+
+    color: #333; /* Texto em cinza escuro */
+    font-family: 'Georgia', serif; /* Fonte com serifa para formalidade */
+    float: left;
+}
+
+
+.conteudo_funcionario:hover,
+.conteudo_produto:hover,
+.conteudo_categoria:hover{
+    transition: transform 0.5s, box-shadow 0.3s; /* Transição suave para efeitos */
+    transform: scale(1.03); /* Leve efeito de escala para interatividade */
+    background-color: #5b8bd6;
+}
+
+
+.conteudo_produto {
+    background: #ffffff; /* Fundo branco para um visual limpo e formal */
+    text-align: start;
+    display: inline-block;
+    width: auto;
+    height: auto; /* Ajuste automático da altura para conteúdo variável */
+
+    font-size: 18px; /* Tamanho de texto menor para maior clareza */
+    padding: 20px; /* Espaçamento interno para maior legibilidade */
+    border-radius: 5px; /* Bordas suaves e discretas */
+    margin: 10px; /* Espaço entre os cards */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra leve para destacar sem exagerar */
+    transition: transform 0.3s, box-shadow 0.3s; /* Transição suave para efeitos */
+    color: #333; /* Texto em cinza escuro */
+    font-family: 'Georgia', serif; /* Fonte com serifa para formalidade */
+
+}
+
+.conteudo_funcionario {
+    background: #ffffff; /* Fundo branco para um visual limpo e formal */
+    text-align: start;
+    display: inline-block;
+    width: 250px;
+    height: 140px;
+    border-radius: 5px; /* Cantos menos arredondados para maior formalidade */
+    font-size: 18px; /* Tamanho de texto menor para maior clareza */
+    padding: 20px; /* Espaçamento interno para maior legibilidade */
+    border: 2px solid #d1d1d1; /* Bordas suaves e discretas */
+    margin: 10px; /* Espaço entre os cards */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra leve para destacar sem exagerar */
+    transition: transform 0.3s, box-shadow 0.3s; /* Transição suave para efeitos */
+    color: #333; /* Texto em cinza escuro */
+    font-family: 'Georgia', serif; /* Fonte com serifa para formalidade */
+
+}
+
+
+.dashboard_dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsivo e flexível */
+    gap: 20px; /* Espaçamento entre os itens */
+    padding: 20px;
+}
+
+/* Estilo do Conteúdo do Dashboard */
+.conteudo_dashboard {
+    background-color: #2a2a4e; /* Fundo do card */
+    border-radius: 12px; /* Bordas arredondadas */
+    padding: 20px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5); /* Sombra suave para destaque */
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease; /* Transição para o hover */
+}
+
+.conteudo_dashboard:hover {
+    transform: translateY(-10px); /* Efeito de elevação ao passar o mouse */
+}
+
+/* Efeito Gráfico no fundo com Gradiente */
+.conteudo_dashboard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #00bcd4, #3f51b5); /* Gradiente sutil */
+    opacity: 0.15; /* Leve transparência para não sobrecarregar */
+    z-index: 0; /* Colocar atrás do conteúdo */
+}
+
+/* Estilo dos Parágrafos */
+.conteudo_dashboard p {
+    margin: 10px 0;
+    font-size: 16px; /* Aumentando o tamanho da fonte para maior legibilidade */
+    color: #ffffff; /* Cor do texto */
+    z-index: 1;
+    position: relative;
+}
+
+/* Destaque para os Títulos */
+.conteudo_dashboard p strong {
+    font-size: 18px; /* Tamanho maior para os títulos */
+    color: #00bcd4; /* Cor para os títulos */
+}
+
+/* Estilo dos Links (Botões) */
+.conteudo_dashboard a {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #ffffff; /* Cor do texto */
+    font-weight: bold;
+    background: #282846; /* Fundo do botão */
+    padding: 10px 20px; /* Padding confortável */
+    border-radius: 6px; /* Bordas arredondadas */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Sombra sutil para destaque */
+    z-index: 1;
+    position: relative;
+    transition: background 0.3s ease, transform 0.2s ease; /* Transição suave no hover */
+}
+
+.conteudo_dashboard a:hover {
+    background: #00bcd4; /* Cor do botão no hover */
+    color: #ffffff;
+    box-shadow: 0px 6px 15px rgba(0, 188, 212, 0.5); /* Efeito de brilho no hover */
+    transform: scale(1.05); /* Aumento no tamanho do botão ao passar o mouse */
+}
+
+/* Estilo do Rodapé */
+footer {
+    background-color: #282846; /* Fundo escuro */
+    color: #ffffff; /* Cor do texto */
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 14px;
+    border-radius: 6px; /* Bordas arredondadas para o rodapé */
+}
+
+/* Estilo de fontes globais para aumentar a legibilidade */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #1e1e2f; /* Fundo escuro para contraste */
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Container do Dashboard - Estilo Dinâmico */
+.dashboard_dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adapta os cartões ao tamanho da tela */
+    gap: 15px; /* Espaçamento uniforme */
+    padding: 15px;
+}
+
+/* Estilo dos Cartões */
+.conteudo_dashboard {
+    background-color: #2a2a4e; /* Fundo escuro */
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.conteudo_dashboard:hover {
+    transform: translateY(-8px); /* Efeito dinâmico no hover */
+}
+
+/* Gradiente decorativo */
+.conteudo_dashboard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #00bcd4, #3f51b5);
+    opacity: 0.1;
+    z-index: 0;
+}
+
+/* Texto dentro dos cartões */
+.conteudo_dashboard p {
+    margin: 8px 0;
+    font-size: 14px;
+    color: #ffffff;
+    z-index: 1;
+    position: relative;
+}
+
+/* Destaque para os títulos */
+.conteudo_dashboard p strong {
+    font-size: 16px;
+    color: #00bcd4;
+}
+
+
+
+
+/*.conteudo, .container_dash_consulta {*/
+/*    background: #ffffff; !* Fundo branco para um visual limpo e formal *!*/
+/*    text-align: start;*/
+/*    display: inline-block;*/
+/*    width: 260px;*/
+/*    height: auto; !* Ajuste automático da altura para conteúdo variável *!*/
+/*    border-radius: 5px; !* Cantos menos arredondados para maior formalidade *!*/
+/*    font-size: 16px; !* Tamanho de texto menor para maior clareza *!*/
+/*    padding: 20px; !* Espaçamento interno para maior legibilidade *!*/
+/*    border: 1px solid #d1d1d1; !* Bordas suaves e discretas *!*/
+/*    margin: 15px; !* Espaço entre os cards *!*/
+/*    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); !* Sombra leve para destacar sem exagerar *!*/
+/*    transition: transform 0.3s, box-shadow 0.3s; !* Transição suave para efeitos *!*/
+/*    color: #333; !* Texto em cinza escuro *!*/
+/*    font-family: 'Georgia', serif; !* Fonte com serifa para formalidade *!*/
+/*}*/
+
+/*.conteudo:hover, .container_dash_consulta:hover {*/
+/*    transform: scale(1.02); !* Leve aumento ao passar o mouse *!*/
+/*    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); !* Sombra mais pronunciada no hover *!*/
+/*}*/
+/*.container_dash_consulta {*/
+/*    background: linear-gradient(135deg, #ff9a9e, #fad0c4);*/
+/*    text-align: start;*/
+/*    display: inline-block;*/
+/*    width: 260px;*/
+/*    height: 274px;*/
+/*    border-radius: 15px;*/
+/*    font-size: 18px;*/
+/*    padding: 15px;*/
+/*    border: 2px solid rgba(0, 0, 0, 0.5);*/
+/*    margin: 20px; !* Maior espaçamento entre os cards *!*/
+/*    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);*/
+/*    transition: transform 0.3s;*/
+/*    color: black;*/
+/*    font-family: Arial, sans-serif;*/
+/*    vertical-align: top; !* Alinhamento vertical *!*/
+/*}*/
+
+/*.container_dash_consulta:hover {*/
+/*    transform: scale(1.05);*/
+/*}*/
+
+/*.container_dash_animal {*/
+/*    background: linear-gradient(135deg, #a8e063, #56ab2f);*/
+/*    text-align: start;*/
+/*    display: inline-block;*/
+/*    width: 260px;*/
+/*    height: 274px;*/
+/*    border-radius: 15px;*/
+/*    font-size: 18px;*/
+/*    padding: 15px;*/
+/*    border: 2px solid rgba(0, 0, 0, 0.5);*/
+/*    margin: 20px;*/
+/*    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);*/
+/*    transition: transform 0.3s;*/
+/*    color: black;*/
+/*    font-family: Arial, sans-serif;*/
+/*    vertical-align: top; !* Alinhamento vertical *!*/
+/*}*/
+
+/*.container_dash_animal:hover {*/
+/*    transform: scale(1.05);*/
+/*}*/
+
+
+/*.conteudo_dash {*/
+/*    display: inline-block;*/
+/*    background: linear-gradient(135deg, rgba(0, 128, 255, 0.8), rgba(128, 0, 255, 0.8));*/
+/*    font-size: 22px;*/
+/*    text-align: center;*/
+/*    border-radius: 10px;*/
+/*    border-bottom: black;*/
+/*    padding: 15px; !* Mantendo o padding *!*/
+/*    margin: 10px;*/
+/*    color: white;*/
+/*}*/
+
+/*.conteudo_dash:hover {*/
+/*    transform: scale(1.05);*/
+/*}*/
+
+
+/*.container_dash_consulta,*/
+/*.container_dash_animal,*/
+/*.container_cadastro_produto {*/
+/*    background: linear-gradient(135deg, #bdc3c7, #2c3e50); !* Gradiente suave para combinar com o estilo do nav *!*/
+/*    color: #fff; !* Texto branco para contraste *!*/
+/*    font-family: 'Georgia', serif; !* Fonte para consistência *!*/
+/*    border: 1px solid rgba(44, 62, 80, 0.2); !* Borda sutil para destacar os containers *!*/
+/*    margin: 20px; !* Espaçamento consistente entre os cards *!*/
+/*    padding: 20px; !* Padding para melhor alinhamento *!*/
+/*    border-radius: 12px; !* Bordas levemente arredondadas *!*/
+/*    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); !* Sombra para profundidade *!*/
+/*    transition: transform 0.3s;*/
+
+/*}*/
+
+
+/*.container_dash_consulta:hover,*/
+/*.container_dash_animal:hover,*/
+/*.container_cadastro_produto:hover {*/
+/*    transform: scale(1.03); !* Leve efeito de escala para interatividade *!*/
+/*}*/
+
+
+/*.container_dash_consulta {*/
+/*    height: 300px;*/
+/*}*/
+
+/*.conteudo_conslta{*/
+
+/*}*/
+
+/*.container_cadastro_produto {*/
+/*    background: linear-gradient(135deg, #bdc3c7, #2c3e50); !* Gradiente suave *!*/
+/*    color: #ffffff; !* Texto branco para contraste *!*/
+/*    font-family: 'Georgia', serif; !* Fonte para consistência *!*/
+/*    border: 1px solid rgba(44, 62, 80, 0.2); !* Borda sutil *!*/
+/*    margin: 20px; !* Espaçamento consistente com outros cards *!*/
+/*    padding: 20px; !* Padding adequado *!*/
+/*    border-radius: 12px; !* Bordas arredondadas suaves *!*/
+/*    width: 260px; !* Largura consistente *!*/
+/*    height: auto; !* Ajuste automático da altura *!*/
+/*    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); !* Sombra para profundidade *!*/
+/*    text-align: start; !* Alinhamento à esquerda para conteúdo *!*/
+/*    display: inline-block;*/
+/*    transition: transform 0.3s, box-shadow 0.3s; !* Transições suaves *!*/
+/*}*/
+
+/*.container_cadastro_produto:hover {*/
+/*    transform: scale(1.03); !* Efeito de escala suave *!*/
+/*    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); !* Sombra mais intensa *!*/
+/*}*/
+
+/*h2, h3 {*/
+/*    font-family: 'Merriweather', serif; !* Exemplo de uma fonte serif elegante *!*/
+/*    color: #311b92; !* Roxo escuro para destaque *!*/
+/*}*//* Container do Dashboard - Gráfico Moderno */
+
+
+/* Estilos para ícones de casa*/
+/*.imagem_template {*/
+/*    display: inline-block;*/
+/*    border-radius: 50%; !* Formato circular *!*/
+/*    height: 50px;*/
+/*    width: 50px;*/
+/*    background-color: #7b1fa2; !* Fundo roxo *!*/
+/*    text-align: left;*/
+/*    line-height: 50px; !* Centraliza verticalmente *!*/
+/*    color: white; !* Texto branco *!*/
+/*    margin-right: 20px;*/
+/*    margin-left: 10px; !* Espaço entre ícones *!*/

@@ -3,11 +3,11 @@
 {% block conteudo %}
 
 {% for produto, categoria in lista_produto %}
-<div class="conteudo">
-    <p> Descrição: {{produto.descricao}} </p><br>
-    <p> Quantidade Produto: {{produto.quantidade_produto}}</p> <br>
-    <p> Nome: {{produto.nome}}</p> <br>
-    <p> Categoria : {{categoria.name_categoria}}</p><br>
+<div class="conteudo_produto">
+    <p> Descrição: {{produto.descricao}} </p>
+    <p> Quantidade Produto: {{produto.quantidade_produto}}</p>
+    <p> Nome: {{produto.nome}}</p>
+    <p> Categoria : {{categoria.name_categoria}}</p>
     <p> Preço: {{produto.preco}}</p>
     <a href="{{url_for('editar_produto', id_produto=produto.id)}}"> EDITAR</a>
 </div>
