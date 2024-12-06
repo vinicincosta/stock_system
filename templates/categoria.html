@@ -4,8 +4,10 @@
 
 <!--ITEMM -->
 {% for item in lista_categoria %}
-<div class="conteudo">
-    <p> Nome Categoria:{{item.name_categoria}} </p><br>
+<div class="conteudo_categoria">
+    <p> Nome Categoria:{{item.name_categoria}} </p>
+    <a href="{{url_for('editar_categoria', id_categoria=item.id)}}"> EDITAR</a>
+<!--    Item já é categoria-->
 
 </div>
 {% endfor %}

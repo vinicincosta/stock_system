@@ -1,4 +1,4 @@
-from models import Produto, Categoria, Movimentacao, Funcionario, Movimentacao_Produto, db_session
+from models import Produto, Categoria, Movimentacao, Funcionario, db_session
 from sqlalchemy import select
 
 
@@ -40,9 +40,9 @@ def deletar_produto():
 
 def inserir_movimentacao():
     movimentacao = Movimentacao(
-        volume_movimentacao=int(input('Quantidade:')),
-        atividade=str(input('Atividade:')),
-        produto_movimentado=int(input('Produto:'))
+        volume_movimentacao=int(input('Quantidade: ')),
+        atividade=str(input('Atividade: ')),
+        produto_movimentado=int(input('Produto: '))
     )
 
     print(movimentacao)

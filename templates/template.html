@@ -12,8 +12,10 @@
 
 <header>
 
-    <div class="lista">
-        <div class="lista1"><strong>STOCK SYSTEM</strong></div><br>
+    <div class="icones_header">
+        <img class="logo" src="/static/estoque.jpg" alt="Logo do site">
+
+        <div class="titulo">STOCK SYSTEM</div>
 
         <div class="produto">
             <a href="{{url_for('dashboard')}}"> <!-- Link para a página dashboard -->
@@ -24,7 +26,7 @@
 
         <div class="produto">
             <a href="{{url_for('suporte')}}" class="imagem_template"> <!-- Link para a página inicial -->
-                <img class="caracteristicas" src="/static/suporte.png" alt="Ícone da casa">
+                <img class="icone" src="/static/suporte.png" alt="Ícone da casa">
             </a>
             <p>suporte</p>
         </div>
@@ -32,7 +34,7 @@
 
         <div class="produto">
         <a href="{{url_for('produto')}}" class="imagem_template"> <!-- Link para a página inicial -->
-            <img class="caracteristicas" src="/static/produto.png" alt="Ícone da casa">
+            <img class="icone" src="/static/produto.png" alt="Ícone da casa">
         </a>
             <p>produtos</p>
         </div>
@@ -40,7 +42,7 @@
 
         <div class="produto">
             <a href="{{url_for('funcionario')}}" class="imagem_template"> <!-- Link para a página inicial -->
-                <img class="caracteristicas" src="/static/funcionario.jpg" alt="Ícone da casa">
+                <img class="icone" src="/static/funcionario.png" alt="Ícone da casa">
             </a>
             <p>funcionários</p>
         </div>
@@ -48,7 +50,7 @@
 
         <div class="produto">
             <a href="{{url_for('movimentacao')}}" class="imagem_template"> <!-- Link para a página inicial -->
-                <img class="caracteristicas" src="/static/movimentacao.png" alt="Ícone da casa">
+                <img class="icone" src="/static/movimentacao.png" alt="Ícone da casa">
             </a>
             <p>movimentações</p>
         </div>
@@ -56,13 +58,10 @@
 
         <div class="produto">
             <a href="{{url_for('categoria')}}" class="imagem_template"> <!-- Link para a página inicial -->
-                <img class="caracteristicas" src="/static/categoria.png" alt="Ícone da casa">
+                <img class="icone" src="/static/categoria.png" alt="Ícone da casa">
             </a>
             <p>categorias</p>
         </div>
-
-
-
     </div>
 
 </header>
@@ -71,7 +70,7 @@
 <div class="container">
 
     <nav>
-        <div class="topo_nav"><strong>CADASTRAR:</strong></div>
+        <div class="topo_nav">CADASTRAR:</div>
         <!--        <a href="{{url_for('funcionario')}}"> FUNCIONÁRIOS CADASTRADOS</a>-->
         <a href="{{url_for('criar_funcionario')}}"> Funcionário</a>
 

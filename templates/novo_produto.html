@@ -6,17 +6,25 @@
     <label> Nome </label>
     <input type="text" name="form_nome">
 
-    <Label> Descrição </Label>
+    <Label>Descrição</Label>
     <input type="text" name="form_descricao">
 
-    <label> Preço</label>
-    <input type="text" name="form_preco">
+    <label>Preço</label>
+    <input type="number" name="form_preco">
 
-    <label> Quantidade_produto</label>
-    <input type="text" name="form_quantidade_produto">
+<!--    <label>Quantidade</label>-->
+<!--    <input type="text" name="form_quantidade_produto">-->
 
-    <label>Categoria Id</label>
-    <input type="text" name="form_categoria_id">
+    <label>Categoria</label>
+    <select  name="form_categoria_id" required>
+        {% for categoria in categorias %}
+        <option value="{{ categoria.id }}"> {{categoria.name_categoria}}</option>
+
+        {% endfor %}
+    </select>
+
+
+
     <button> Adicionar</button>
     <button><a href="{{url_for('produto')}}"> Cancelar</a></button>
 </form>
