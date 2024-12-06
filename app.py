@@ -90,6 +90,8 @@ def verificar_email_cnpj(email, cnpj, telefone):
     usuario = db_session.query(Usuario).filter_by(telefone=telefone).first()
     if usuario:
         return True
+
+    db_session.close()
     return False
 
 
