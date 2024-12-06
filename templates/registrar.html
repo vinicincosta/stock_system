@@ -1,13 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>registrar usuario</title>
+    <link rel="stylesheet" href="/static/registrar.css">
 </head>
 <body>
-  <form action="" method="post"></form>
-        Nome: <input type="text" name="nomeForm" id=""><br>
-        Senha: <input type="password" name="senhaForm" id="">
-        <input type="submit" value="Cadastrar">
+<main>
+<div class="texto_motivador">
+    <h1>Já possui uma conta?</h1>
+</div>
+
+
+<button class><a href="{{ url_for('login') }}">login</a></button>
+
+<h1 class="titulo">
+    EstoquePro
+</h1>
+
+<div class="container_formulario">
+    <form method="POST" action="{{ url_for('registrar') }}">
+        <div class="formulario">
+            <label class="descricao" for="nome">Insira nome do cliente</label>
+            <input class="input" type="text" id="nome" name="nome">
+        </div>
+        <div class="formulario">
+            <label class="descricao" for="email">Email:</label>
+            <input class="input" type="email" id="email" name="email">
+        </div>
+        <div class="formulario">
+            <label class="descricao" for="senha">Insira uma senha forte:</label>
+            <input class="input" type="password" id="senha" name="senha">
+        </div>
+        <div class="formulario">
+            <label class="descricao" for="telefone">Insira seu telefone:</label>
+            <input class="input" type="number" id="telefone" name="telefone">
+        </div>
+        <div class="formulario">
+            <label class="descricao" for="CNPJ">Insira o CNPJ da empresa:</label>
+            <input class="input" type="number" name="CNPJ" id="CNPJ">
+        </div>
+
+        <button id="enviar" type="submit">registrar</button>
+    </form>
+</div>
 </body>
 </html>
+
+
+
+
+
+

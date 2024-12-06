@@ -1,14 +1,17 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from sqlite3 import IntegrityError
 from sqlalchemy import select, func, desc
 from sqlalchemy.testing.pickleable import User
-
-# import matplotlib.pyplot as plt
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 from models import *
 import plotly.express as px
 import plotly.io as pio
-from flask import Flask, render_template, request, redirect, url_for
-from flask_login import LoginManager, login_user, login_required, logout_user
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from sqlalchemy.exc import IntegrityError
 import hashlib
+from argon2 import PasswordHasher
+from functools import wraps
+
 
 app = Flask(__name__)
 ln = LoginManager(app)
@@ -19,7 +22,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
 
 @app.route('/home')
-
 def home():
     sql_salario = select(Funcionario)
     resultado_funcionario = db_session.execute(sql_salario).scalars()
@@ -39,65 +41,130 @@ def home():
                            )
 
 
-def hash(txt):
-    hash_obj = hashlib.sha256(txt.encode('utf-8'))
-    return hash_obj.hexdigest()
-
-
 @ln.user_loader
 def user_loader(id):
-    usario = db_session.query(Usuario).filter_by(id=id).first()
-    return usario
+    usuario = db_session.query(Usuario).filter_by(id=id).first()
+    return usuario
+
+
+ln.login_view = 'login'
+
+
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.admin:  # Verifica se o usuÃ¡rio NÃƒO Ã© admin
+            flash('Acesso negado, necessita ser admin', 'error')
+            return redirect(url_for('dashboard'))  # Redireciona para uma pÃ¡gina apropriada
+        return f(*args, **kwargs)  # Executa a funÃ§Ã£o original
+
+    return decorated_function
+
+
+def usuario_ativo(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.status:
+            flash('Acesso negado, Usuario desativado', 'error')
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+
+@app.route('/')
+def redirecionar():
+    return redirect(url_for('login'))
+
+
+#   U          S           U           A            R              I             O          S         login
+# cadastro de usuarios
+
+def verificar_email_cnpj(email, cnpj, telefone):
+    usuario = db_session.query(Usuario).filter_by(email=email).first()
+    if usuario:
+        return True
+    usuario = db_session.query(Usuario).filter_by(CNPJ=cnpj).first()
+    if usuario:
+        return True
+    usuario = db_session.query(Usuario).filter_by(telefone=telefone).first()
+    if usuario:
+        return True
+    return False
+
+
+@app.route('/registrar', methods=['GET', 'POST'])
+def registrar():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        email = request.form['email']
+        senha = request.form['senha']
+        telefone = request.form['telefone']
+        CNPJ = request.form['CNPJ']
+
+        if verificar_email_cnpj(email, CNPJ, telefone):
+            flash('Email ou CNPJ ja existente', 'error')
+            return redirect(url_for('login'), )
+        else:
+            try:
+                if not nome or not email or not senha:
+                    flash('preecher todos os campos', 'error')
+                else:
+                    usuario = Usuario(nome=nome, email=email, senha=senha,
+                                      telefone=telefone, CNPJ=CNPJ, admin=False, status=False)
+                    db_session.add(usuario)
+                    db_session.commit()
+                    flash('Usuario cadastrado com sucesso', 'error')
+                    return redirect(url_for('login'))
+            except IntegrityError:
+
+                flash('erro')
+
+    return render_template("registrar.html")
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'GET':
-        return render_template('login.html')
-    elif request.method == 'POST':
-        nome = request.form['nomeForm']
-        senha = request.form['senhaForm']
+    if request.method == 'POST':
+        email = request.form['email']
+        senha = request.form['senha']
+        if not email:
+            flash('preecher todos os campos', 'error')
+        elif not senha:
+            flash('preecher todos os campos', 'error')
+        else:
+            usuario = db_session.query(Usuario).filter_by(email=email).first()
 
-        user = db_session.query(Usuario).filter_by(nome=nome, senha=hash(senha)).first()
-        if not user:
-            return 'Nome ou senha incorretos'
+            if usuario:
+                if not usuario.status:
+                    flash('')
+                    redirect(url_for('login'))
+                print(senha)
+                if usuario.admin and usuario.verificar_senha(senha):
+                    flash('Olá admin, login realizado com sucesso!', 'success')
+                    login_user(usuario)
 
-        login_user(user)
-        return redirect(url_for('template'))
-
-    else:
-        flash(message=" Verifique se os dados estão inseridos corretamente")
-    return render_template('login.html')
-
-
-@app.route('/register', methods=['GET', 'POST'])
-def registrar():
-    if request.method == 'GET':
-        return render_template('registrar.html')
-    elif request.method == 'POST':
-        nome = request.form['nomeForm']
-        senha = request.form['senhaForm']
-
-        novo_usuario = Usuario(nome=nome, senha=hash(senha))
-        db_session.add(novo_usuario)
-        db_session.commit()
-
-        login_user(novo_usuario)
-
-        return redirect(url_for('template'))
+                    return redirect(url_for('dashboard'))
+                else:
+                    flash('login deu errado, certifique-se de que os dados estão coreretos', 'error')
+            else:
+                flash('usuario não encontrado', 'error')
+    db_session.close()
+    return render_template("login.html")
 
 
-@app.route('/logout')
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@app.route('/logout', methods=['GET', 'POST'])
 @login_required
+@usuario_ativo
 def logout():
     logout_user()
-    return redirect(url_for('home.html'))
-
+    return redirect(url_for('dashboard'))
 
 # redirecionar login
-@app.route('/')
-def template():
-    return render_template('template.html')
+# @app.route('/')
+# def template():
+#     return render_template('template.html')
 
 
 @app.route('/suporte')
@@ -113,7 +180,7 @@ def estoque():
 @app.route('/produto', methods=['GET'])
 def produto():
     sql_produto = select(Produto, Categoria).join(Categoria, Categoria.id == Produto.categoria_id)
-    resultado_produto = db_session.execute(sql_produto).fetchall()  # quando é join fetchall invez de de scalars
+    resultado_produto = db_session.execute(sql_produto).fetchall()  # quando Ã© join fetchall invez de de scalars
 
     return render_template('produto.html',
                            lista_produto=resultado_produto)
@@ -154,7 +221,7 @@ def criar_produto():
             db_session.close()
             flash("Produto cadastrado com sucesso!!", "success")
 
-            # dentro do url sempre chamar função
+            # dentro do url sempre chamar funÃ§Ã£o
             return redirect(url_for("produto"))
             # sempre no render chamar html
 
@@ -173,7 +240,7 @@ def editar_produto(id_produto):
 
     # verifica se existe
     if not produto_resultado:
-        flash("Produto não encontrado", "error")
+        flash("Produto nÃ£o encontrado", "error")
         return redirect(url_for('produto'))
     if request.method == 'POST':
         # valida os dados recebidos
@@ -187,7 +254,7 @@ def editar_produto(id_produto):
             flash("Preencher campo", "error")
         else:
             try:
-                # o ponto (.) busca a informação
+                # o ponto (.) busca a informaÃ§Ã£o
                 # atualiza os dados
                 produto_resultado.nome = request.form.get('form_nome')
                 produto_resultado.descricao = request.form.get('form_descricao')
@@ -210,7 +277,7 @@ def editar_funcionario(id_funcionario):
     print(funcionario_resultado)
     # verifica se existe
     if not funcionario_resultado:
-        flash("Funcionario não encontrado", "error")
+        flash("Funcionario nÃ£o encontrado", "error")
         return redirect(url_for('funcionario'))
     if request.method == 'POST':
         # valida os dados recebidos
@@ -227,7 +294,7 @@ def editar_funcionario(id_funcionario):
 
                 # salva os dados alterados
                 funcionario_resultado.save()
-                flash("funcionário atualizado com sucesso!", "sucess")
+                flash("funcionÃ¡rio atualizado com sucesso!", "sucess")
                 return redirect(url_for('funcionario'))
             except Exception:
                 flash(f"Erro {Exception}", "error")
@@ -246,30 +313,35 @@ def funcionario():
                            lista_funcionario=lista_funcionario)
 
 
-@app.route('/novo_funcinario', methods=['POST', 'GET'])
+@app.route('/novo_funcionario', methods=['POST', 'GET'])
 def criar_funcionario():
-    # quando clicar no botao de salva
     if request.method == "POST":
+        nome = request.form.get('form_nome', '').strip()
+        cpf = request.form.get('form_cpf', '').strip()
+        salario = request.form.get('form_salario', '').strip()
 
-        if (not request.form['form_nome']
-                or not request.form['form_cpf']
-                or not request.form['form_salario']):
+        # Verifica se todos os campos estão preenchidos
+        if not nome or not cpf or not salario:
             flash("Preencher todos os campos", "error")
+        # Verifica se o CPF tem exatamente 11 caracteres
+        elif len(cpf) != 11 or not cpf.isdigit():
+            flash("O CPF deve conter exatamente 11 números.", "error")
         else:
-            form_novo_funcionario = Funcionario(nome=request.form["form_nome"],
-                                                cpf=request.form["form_cpf"],
-                                                salario=float(request.form['form_salario']),
+            try:
+                form_novo_funcionario = Funcionario(
+                    nome=nome,
+                    cpf=cpf,
+                    salario=float(salario),
+                )
+                form_novo_funcionario.save()
+                db_session.close()
+                flash("Funcionário criado com sucesso!", "success")
+                return redirect(url_for("funcionario"))
+            except Exception as e:
+                flash(f"Erro ao salvar funcionário: {e}", "error")
 
-                                                )
-            print(form_novo_funcionario)
-            form_novo_funcionario.save()
-            db_session.close()
-            flash("Evento criado !!!", "success")
-
-            # dentro do url sempre chamar função
-            return redirect(url_for("funcionario"))
-            # sempre no render chamar html
     return render_template('novo_funcionario.html')
+
 
 
 @app.route('/categoria', methods=['GET'])
@@ -298,10 +370,11 @@ def criar_categoria():
             db_session.close()
             flash("Categoria criada!!!", "success")
 
-            # dentro do url sempre chamar função
+            # dentro do url sempre chamar funÃ§Ã£o
             return redirect(url_for("categoria"))
             # sempre no render chamar html
     return render_template('nova_categoria.html')
+
 
 @app.route('/cadastrar_movimentacao', methods=['GET', 'POST'])
 def criar_movimentacao():
@@ -321,7 +394,7 @@ def criar_movimentacao():
         resultado_produto = db_session.execute(select(Produto).filter_by(id=int(produto_id))).scalar()
 
         if not resultado_produto:
-            return "Produto não encontrado"
+            return "Produto nÃ£o encontrado"
 
         movimentacao = Movimentacao(
             volume_movimentacao=volume,
@@ -330,9 +403,9 @@ def criar_movimentacao():
             funcionario_movimentado=funcionario_id
         )
         if atividade == 'saida':
-            # Checar se há quantidade suficiente no estoque
+            # Checar se hÃ¡ quantidade suficiente no estoque
             if resultado_produto.verificar_volume(volume_movimentacao=volume):
-                # Atualizar estoque para saída
+                # Atualizar estoque para saÃ­da
                 resultado_produto.quantidade_produto -= volume
                 movimentacao.save()
                 resultado_produto.save()
@@ -361,7 +434,7 @@ def editar_movimentacao(id_movimentacao):
     print('xxxxxxxxxx', movimentacao_resultado)
     # verifica se existe
     if not movimentacao_resultado:
-        flash("Movimentação não encontrada", "error")
+        flash("MovimentaÃ§Ã£o nÃ£o encontrada", "error")
         return redirect(url_for('movimentacao'))
     if request.method == 'POST':
         # valida os dados recebidos
@@ -382,7 +455,7 @@ def editar_movimentacao(id_movimentacao):
                 movimentacao_resultado.funcionario_movimentado = request.form.get('form_funcionario_movimentado')
                 # salva os dados alterados
                 movimentacao_resultado.save()
-                flash("Movimentação atualizada com sucesso!", "sucess")
+                flash("MovimentaÃ§Ã£o atualizada com sucesso!", "sucess")
                 return redirect(url_for('movimentacao'))
             except Exception:
                 flash(f"Erro {Exception}", "error")
@@ -396,7 +469,7 @@ def editar_categoria(id_categoria):
     print(categoria_resultado)
     # verifica se existe
     if not categoria_resultado:
-        flash("Categoria não encontrado", "error")
+        flash("Categoria nÃ£o encontrado", "error")
         return redirect(url_for('categoria'))
     if request.method == 'POST':
         # valida os dados recebidos
@@ -417,10 +490,9 @@ def editar_categoria(id_categoria):
     return render_template('editar_categoria.html', categoria=categoria_resultado)
 
 
-
 @app.route('/dashboard')
 def dashboard():
-    # Buscar os 3 funcionários com os maiores salários no departamento "estoque"
+    # Buscar os 3 funcionÃ¡rios com os maiores salÃ¡rios no departamento "estoque"
     funcionarios_estoque = (
         Funcionario.query
         .order_by(Funcionario.salario.desc())
@@ -432,8 +504,9 @@ def dashboard():
     return render_template("dashboard.html", lista_funcionario=funcionarios_estoque,
                            produtos_movimentados=produtos_movimentados)
 
+
 def produtos_mais_movimentados():
-    # Consulta para contar as movimentações por produto
+    # Consulta para contar as movimentaÃ§Ãµes por produto
     produtos_movimentados = (
         db_session.query(
             Produto.nome,
@@ -447,11 +520,12 @@ def produtos_mais_movimentados():
         .all()
     )
 
-    # Verificando se os dados estão sendo retornados
+    # Verificando se os dados estÃ£o sendo retornados
     print(produtos_movimentados)
 
     # Renderizar os resultados no dashboard
     return produtos_movimentados
+
 
 @app.route('/dashboard_gf', methods=['GET', 'POST'])
 def dashboard_func():
@@ -479,12 +553,18 @@ def dashboard_func():
         'Nº de movimentações': dados
     }
     print(data)
-    # criando gráfico com plotly express
+    # criando grÃ¡fico com plotly express
 
-    fig = px.histogram(data, x='Funcionários', y='Nº de movimentações', color='Funcionários', template='seaborn')
-    #convertendo grafico em html
+    fig = px.histogram(data, x='Funcionários', y='Nº de movimentações', color='Funcionários', template='plotly_dark')
+    # convertendo grafico em html
+    fig.layout.update().legend.visible = False
+    fig.layout.update(
+        {'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+         'paper_bgcolor': 'rgba(0, 0, 0, 0)' }
+    )
     graph_html = pio.to_html(fig, full_html=False)
     return render_template('dashboard_gf.html', home_=False, graph_html=graph_html)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

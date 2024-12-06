@@ -1,0 +1,114 @@
+/* Estilos gerais */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #2d2a4a;
+    color: #f0f0ff;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+h1 {
+    margin: 20px 0;
+}
+
+/* Estilos do texto motivador */
+.texto_motivador {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.texto_motivador h1 {
+    font-size: 1.5em;
+    color: #b3a7e3;
+}
+
+/* Estilos do botão de login */
+button {
+    background-color: #6a5acd;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+}
+
+button a {
+    color: white;
+    text-decoration: none;
+}
+
+button:hover {
+    background-color: #483d8b;
+}
+
+/* Estilo do título */
+.titulo {
+    font-size: 2em;
+    color: #d8b4ff;
+}
+
+/* Estilos do formulário */
+.container_formulario {
+    background: #3c366b;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.formulario {
+    margin-bottom: 15px;
+}
+
+.descricao {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: #c9c2eb;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #6a5acd;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+    background-color: #2a2745;
+    color: #f0f0ff;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #d8b4ff;
+    box-shadow: 0 0 5px #d8b4ff;
+}
+
+/* Estilos do botão enviar */
+#enviar {
+    background-color: #9370db;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+#enviar:hover {
+    background-color: #7b68ee;
+}

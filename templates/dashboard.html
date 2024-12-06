@@ -5,15 +5,17 @@
 <h1 style="text-align: end; color: #00bcd4;"></h1>
 <div class="dashboard_grafico">
 
+    <a href="{{url_for('dashboard_func')}}" class="imagem_template"> <!-- Link para a página inicial -->
+        <img class="icone" src="/static/grafico.webp" alt="Ícone da casa">
+    </a>
+    <h1>Gráfico</h1>
+
 </div>
-<a href="{{url_for('dashboard_func')}}" class="imagem_template"> <!-- Link para a página inicial -->
-    <img class="icone" src="/static/grafico.webp" alt="Ícone da casa">
-</a>
-<p>Gráfico</p>
 
 
 
-    <h1>Maiores Salários:</h1>
+
+<h1>Maiores Salários</h1>
 <div class="dashboard_dashboard">
     {% for item in lista_funcionario %}
     <div class="conteudo_dashboard">
@@ -30,7 +32,7 @@
     {% for item in produtos_movimentados %}
     <div class="conteudo_dashboard">
         <p><strong>Produto:</strong> {{ item[0] }}</p>
-        <p><strong>Movimentações:</strong> {{ item[1] }}</p>
+        <p><strong>Saídas:</strong> {{ item[1] }}</p>
     </div>
     {% endfor %}
 </div>

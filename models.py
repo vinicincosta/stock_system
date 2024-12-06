@@ -1,46 +1,67 @@
 # importar bibliotecas
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Float, select
+
+from asyncio import exceptions
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Float, select, Boolean
 from sqlalchemy.orm import scoped_session, sessionmaker, relationship, declarative_base
 # login
-from flask_login import UserMixin
 
+from flask_login import UserMixin
+from argon2 import PasswordHasher, verify_password, exceptions
 engine = create_engine('sqlite:///nome.sqlite3')
 db_session = scoped_session(sessionmaker(bind=engine))
-
+ph = PasswordHasher()
 Base = declarative_base()
 Base.query = db_session.query_property()
 
 
 class Usuario(UserMixin, Base):
     __tablename__ = 'usuario'
-    id = Column(Integer, primary_key=True)
-    nome = Column(String)
-    senha = Column(String)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    nome = Column(String(40), unique=False, index=True, nullable=False)
+    email = Column(String(80), unique=True, index=True, nullable=False)
+    senha = Column(String(80), unique=False, nullable=False, index=True)
+    telefone = Column(Integer, unique=True, nullable=False, index=True)
+    CNPJ = Column(Integer, unique=True, nullable=True, index=True)
+    admin = Column(Boolean, default=False, index=True, nullable=True)
+    status = Column(Boolean, default=False, index=True, nullable=True)
 
+    @property
     def __repr__(self):
-        return ('<Usuário: nome: {}  senha: {}>'.
-                format(self.nome, self.senha
-                       ))
+        return '<pessoa: {}, {}, {}, {}, {}>'.format(self.nome, self.email, self.senha,
+                                                     self.telefone, self.CNPJ)
 
-        # função para salvar no banco
+    def __init__(self, nome, email, senha, telefone, CNPJ, admin, status):
+        self.nome = nome
+        self.email = email
+        self.senha = ph.hash(senha)
+        self.telefone = telefone
+        self.CNPJ = CNPJ
+        self.admin = admin
+        self.status = status
+
+    def verificar_senha(self, senha):
+        try:
+            return ph.verify(self.senha, senha)  # Verifica se a senha fornecida Ã© vÃ¡lida
+        except exceptions.VerifyMismatchError:
+            return False
 
     def save(self):
         db_session.add(self)
         db_session.commit()
 
-        # função para deletar
-
     def delete(self):
         db_session.delete(self)
         db_session.commit()
 
-    def serialize_usuario(self):
-        dados_usuario = {
-            "id": self.id,
-            "nome": self.nome,
-            "senha": self.senha,
+    def serialize_user(self):
+        dados_user = {
+            'nome': self.nome,
+            'email': self.email,
+            'telefone': self.telefone,
+            'CNPJ_': self.CNPJ
         }
-        return dados_usuario
+
+        return dados_user
 
 
 # projeto pessoas que tem atividades
@@ -98,7 +119,6 @@ class Funcionario(Base):
     id = Column(Integer, primary_key=True, unique=True)
     cpf = Column(String(11), nullable=False, index=True, unique=True)
     salario = Column(Float, nullable=False, index=False)
-
 
     # Senha Login
     # passaword = Column(String, nullable=False, inde=True)

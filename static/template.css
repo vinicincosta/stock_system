@@ -2,37 +2,42 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box; /* Facilita o controle do layout */
+    /* Transição suave na renderização da página */
+    transition: all 0.3s ease-in-out;
 }
 
 html, body {
     height: 100%;
-    font-family: 'Arial', sans-serif; /* Fonte limpa e moderna */
-    background-color: #f3e5f5; /* Fundo suave roxo claro */
-    color: #333; /* Cor do texto padrão */
+    font-family: "Baskerville Old Face", serif;
+    background-color: #131313; /* Fundo preto para destaque */
+    color: #2c2c2c; /* Cor do texto padrão */
 }
 
-a {
-    color: #7b1fa2; /* Roxo escuro para links */
-    text-decoration: none; /* Remove sublinhado padrão */
-    transition: color 0.3s; /* Transição suave para hover */
-}
-
-a:hover {
-    color: white; /* Roxo ainda mais escuro ao passar o mouse */
-    text-decoration: underline; /* Sublinha ao passar o mouse */
+body {
+    display: flex;
+    flex-direction: column; /* Coluna para garantir que o header fique no topo */
 }
 
 header {
-    background-color: #9575cd; /* Roxo claro para o cabeçalho */
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza as imagens horizontalmente */
+    align-items: center; /* Centraliza as imagens verticalmente */
+    background-color: #4D83F0; /* Azul claro para o cabeçalho */
+    padding: 10px;
     text-align: center;
-    font-size: 28px;
-    font-weight: bold;
-    color: #ffffff; /* Texto branco para contraste */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave para destaque */
 }
 
-.titulo{
+.logo {
+    display: inline-block;
+    height: 120px;
+    width: 250px;
+    border-radius: 5px;
+    margin: 0px 40px 0px 0px;
+}
+
+.titulo {
     font-size: 60px;
     font-family: "Baskerville Old Face", serif;
     font-weight: bold;
@@ -45,14 +50,40 @@ header img {
     margin: 10px 20px 10px 20px; /* Adiciona margem horizontal entre as imagens */
 }
 
-.wrapper {
+
+.icones_header {
     display: flex;
-    flex: 1; /* Ocupa o restante da tela */
+    width: 100%;
+    justify-content: left; /* Centraliza as imagens horizontalmente */
+    align-items: center; /* Centraliza as imagens verticalmente */
 }
 
+.icone {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    border-radius: 10px; /* Cantos arredondados */
+    /*background-color: #3f51b5;*/
+    /*text-align: right;*/
+}
+
+.icone:hover {
+    transform: scale(1.1); /* Efeito de aumento ao passar o mouse */
+}
+
+
+header p {
+    /* nome abaixo dos icones */
+    font-size: 13px;
+    font-family: Bahnschrift, serif;
+    font-weight: bold;
+    color: #1e1e1e;
+}
+
+
 nav {
-    background-color: #512da8; /* Roxo profundo para o menu */
-    width: 250px; /* Largura fixa do menu */
+    background-color: #131313; /* Roxo claro para o menu */
+    width: 220px; /* Largura fixa do menu */
     height: 100vh; /* Altura total da tela */
     position: fixed; /* Fixa o nav na lateral */
     /*top: 0; !* Alinha ao topo *!*/
@@ -65,35 +96,87 @@ nav {
 
 .topo_nav {
     margin: 18px;
+    font-weight: bold;
     font-size: 18px;
     color: #4D83F0;
 }
 
 nav a {
     display: block;
-    padding: 15px 20px;
-    font-size: 18px;
-    color: white; /* Texto branco no menu */
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2); /* Linha separando os itens */
+    padding: 8px 15px; /* Reduzi o padding */
+    font-size: 14px; /* Diminuí o tamanho da fonte */
+    color: #a07df0; /* Texto branco no menu */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Linha separando os itens */
     transition: background-color 0.3s; /* Transição suave */
+    margin: 5px 10px; /* Adiciona espaçamento entre os links */
+    border-radius: 5px; /* Deixa os cards mais compactos */
 }
 
 nav a:hover {
     background-color: #311b92; /* Roxo mais escuro no hover */
 }
 
+
 main {
     flex: 1;
     padding: 20px;
-    margin-left: 250px; /* Define a margem para que o conteúdo fique ao lado do nav */
-    background-color: white; /* Fundo branco para o conteúdo */
+    margin-left: 220px; /* Define a margem para que o conteúdo fique ao lado do nav */
+    background-color: #1e1e1e; /* Fundo preto para o conteúdo */
+    color: white;
+    height: 100vh; /* Garante que o main ocupe toda a altura da janela */
     overflow-y: auto; /* Permite rolagem se necessário */
+}
+
+
+a {
+    color: #7b1fa2; /* Roxo escuro para links */
+    text-decoration: none; /* Remove sublinhado padrão */
+    transition: color 0.3s; /* Transição suave para hover */
+}
+
+a:hover {
+    color: white; /* Roxo ainda mais escuro ao passar o mouse */
+    text-decoration: underline; /* Sublinha ao passar o mouse */
+}
+
+/* Estilo do Título */
+h1 {
+    text-align: center;
+    color: #00bcd4;
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+    border-color: #311b92; /* Roxo mais escuro ao focar no campo */
+    outline: none; /* Remove contorno padrão */
+}
+
+button {
+    background-color: #512da8; /* Combina com o nav */
+    color: white; /* Texto branco */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s; /* Transição suave */
+    font-family: 'Consolas', monospace; /* Fonte consistente */
+}
+
+button:hover {
+    background-color: #311b92; /* Roxo mais escuro no hover */
 }
 
 
 /* Estilos de formulário */
 form {
-    background: linear-gradient(135deg, rgba(139, 87, 255, 0.8), rgba(87, 0, 127, 0.8));
+    background: linear-gradient(135deg, #512da8, #7b1fa2); /* Gradiente roxo para combinar com o nav */
+    color: white; /* Texto branco */
+    font-family: 'Bahnschrift', monospace; /* Fonte monoespaçada para combinar com o nav */
     padding: 20px;
     border-radius: 10px; /* Cantos arredondados */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
@@ -106,8 +189,11 @@ form textarea {
     width: 100%; /* Largura total */
     padding: 10px;
     margin: 10px 0; /* Espaçamento entre campos */
-    border: 1px solid #7b1fa2; /* Borda roxa */
     border-radius: 5px; /* Cantos arredondados */
+    border: 1px solid #9575cd; /* Borda roxa clara */
+    background-color: #f3e5f5; /* Fundo suave para contraste */
+    color: #333; /* Cor do texto */
+    font-family: 'Bahnschrift', monospace; /* Consistência de fonte */
 }
 
 form text {
@@ -131,9 +217,6 @@ button:hover {
 }
 
 
-
-
-
 .conteudo {
     background: linear-gradient(135deg, rgba(139, 87, 255, 0.8), rgba(87, 0, 127, 0.8));
     text-align: start;
@@ -149,7 +232,7 @@ button:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidade */
     transition: transform 0.3s; /* Transição suave para hover */
     color: black;
-    font-family: Consolas;
+    font-family: Consolas, sans-serif;
 }
 
 .conteudo:hover {
@@ -172,7 +255,7 @@ button:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s;
     color: black;
-    font-family: Consolas;
+    font-family: Consolas, sans-serif;
 }
 
 .container_dash:hover {
@@ -201,120 +284,32 @@ button:hover {
     transform: scale(1.05);
 }
 
-.flashes {
-    list-style-type: none;
-    padding: 0;
-}
+/*.flashes {*/
+/*    list-style-type: none;*/
+/*    padding: 0;*/
+/*}*/
 
-.flashes li {
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-}
+/*.flashes li {*/
+/*    padding: 10px;*/
+/*    margin: 10px 0;*/
+/*    border-radius: 5px;*/
+/*}*/
 
-.flashes .success {
-    background-color: #d4edda;
-    color: #155724;
-}
+/*.flashes .success {*/
+/*    background-color: #d4edda;*/
+/*    color: #155724;*/
+/*}*/
 
-.flashes .error {
-    background-color: #f8d7da;
-    color: #721c24;
-}
+/*.flashes .error {*/
+/*    background-color: #f8d7da;*/
+/*    color: #721c24;*/
+/*}*/
 
-.flashes .info {
-    background-color: #cce5ff;
-    color: #004085;
-}
+/*.flashes .info {*/
+/*    background-color: #cce5ff;*/
+/*    color: #004085;*/
+/*}*/
 
-.caracteristicas{
-    display: inline-block;
-    height: 50px;
-    width: 50px;
-    margin-left: 10px; /* Espaço entre ícones */
-    background-color: #3f51b5;
-    border-radius: 10px; /* Cantos arredondados */
-    text-align: right;
-    line-height: 50px; /* Centraliza verticalmente */
-    color: white; /* Texto branco */
-    float: left;
-    margin-bottom: 10px;
-}
-
-
-
-
-form {
-    background: linear-gradient(135deg, #512da8, #7b1fa2); /* Gradiente roxo para combinar com o nav */
-    padding: 20px;
-    border-radius: 10px; /* Cantos arredondados */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    margin-top: 20px;
-    color: white; /* Texto branco */
-    font-family: 'Consolas', monospace; /* Fonte monoespaçada para combinar com o nav */
-}
-
-form input,
-form select,
-form textarea {
-    width: 100%; /* Largura total */
-    padding: 10px;
-    margin: 10px 0; /* Espaçamento entre campos */
-    border: 1px solid #9575cd; /* Borda roxa clara */
-    border-radius: 5px; /* Cantos arredondados */
-    background-color: #f3e5f5; /* Fundo suave para contraste */
-    color: #333; /* Cor do texto */
-    font-family: 'Consolas', monospace; /* Consistência de fonte */
-}
-
-form input:focus,
-form select:focus,
-form textarea:focus {
-    border-color: #311b92; /* Roxo mais escuro ao focar no campo */
-    outline: none; /* Remove contorno padrão */
-}
-
-button {
-    background-color: #512da8; /* Combina com o nav */
-    color: white; /* Texto branco */
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s; /* Transição suave */
-    font-family: 'Consolas', monospace; /* Fonte consistente */
-}
-
-button:hover {
-    background-color: #311b92; /* Roxo mais escuro no hover */
-}
-
-main {
-    flex: 1;
-    padding: 0;
-    margin-left: 260px; /* Ajuste o valor para corresponder à largura do nav */
-    background-color: #f3e5f5; /* Fundo roxo claro suave */
-    height: 100vh; /* Garante que o main ocupe toda a altura da janela */
-}
-
-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centraliza as imagens horizontalmente */
-    align-items: center; /* Centraliza as imagens verticalmente */
-    background-color: #9575cd; /* Roxo claro para o cabeçalho */
-    padding: 20px;
-    font-size: 28px;
-    font-weight: bold;
-    color: #ffffff; /* Texto branco para contraste */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave para destaque */
-
-}
-
-header img {
-    margin: 0 10px; /* Adiciona margem horizontal entre as imagens */
-}
 
 .saudacao {
     font-size: 26px; /* Aumenta o tamanho do texto */
@@ -368,25 +363,8 @@ header img {
     border-radius: 10px;
     object-fit: cover; /* Garante que a imagem fique bem ajustada dentro do container */
 }
-nav a {
-    display: block;
-    padding: 8px 15px; /* Reduzi o padding */
-    font-size: 14px; /* Diminuí o tamanho da fonte */
-    color: white; /* Texto branco no menu */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Linha separando os itens */
-    transition: background-color 0.3s; /* Transição suave */
-    margin: 5px 10px; /* Adiciona espaçamento entre os links */
-    border-radius: 5px; /* Deixa os cards mais compactos */
-}
-html, body {
-    font-family: 'Roboto', sans-serif; /* Exemplo: Roboto é uma fonte limpa e moderna */
-    background-color: #f3e5f5; /* Fundo suave roxo claro */
-    color: #333; /* Cor do texto padrão */
-}
-h2, h3 {
-    font-family: 'Merriweather', serif; /* Exemplo de uma fonte serif elegante */
-    color: #311b92; /* Roxo escuro para destaque */
-}
+
+
 form input,
 form select,
 form textarea,
@@ -401,16 +379,29 @@ table {
     margin: 20px 0; /* Margem superior e inferior */
     font-size: 16px; /* Tamanho do texto */
     font-family: 'Arial', sans-serif;
-    background-color: #f0f7ff; /* Fundo azul claro pastel */
-    color: #3f3d6d; /* Texto roxo escuro */
-    border-radius: 12px; /* Bordas arredondadas */
+    background-color: #edf6ff; /* Fundo azul claro suave */
+    color: #1d3557; /* Texto azul escuro */
+    border-radius: 15px; /* Bordas arredondadas */
     overflow: hidden; /* Remove excessos visuais nos cantos */
-    box-shadow: 0 4px 15px rgba(80, 120, 200, 0.3); /* Sombra azul suave */
+    box-shadow: 0 6px 20px rgba(30, 60, 110, 0.2); /* Sombra azul suave */
+    animation: fadeIn 0.6s ease-in-out; /* Efeito de transição ao carregar */
+}
+
+/* Animação de aparição */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 /* Cabeçalho da tabela */
 thead {
-    background: linear-gradient(90deg, #7b6bcf, #5b95d6); /* Gradiente de roxo para azul */
+    background: linear-gradient(90deg, #0077b6, #00b4d8); /* Gradiente azul escuro para azul claro */
     color: #ffffff; /* Texto branco */
     font-weight: bold;
     text-transform: uppercase; /* Texto em maiúsculas */
@@ -420,49 +411,60 @@ thead th {
     padding: 15px; /* Espaçamento interno */
     text-align: center; /* Centraliza o texto */
     font-size: 18px; /* Tamanho da fonte do cabeçalho */
-    border-bottom: 3px solid #a3c2f5; /* Linha inferior azul clara */
+    border-bottom: 4px solid #90e0ef; /* Linha inferior azul claro */
 }
 
 /* Corpo da tabela */
 tbody tr {
-    border-bottom: 1px solid #d6e5f8; /* Linha separadora azul claro */
-    transition: background-color 0.3s ease; /* Transição suave no hover */
+    border-bottom: 1px solid #dceeff; /* Linha separadora azul claro */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transição suave no hover */
 }
 
 tbody tr:nth-child(even) {
-    background-color: #eaf0ff; /* Fundo alternado azul muito claro */
+    background-color: #f0f8ff; /* Fundo alternado azul muito claro */
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #f8f3fc; /* Fundo alternado roxo muito claro */
+    background-color: #e1f3ff; /* Fundo alternado azul claro */
 }
 
 tbody tr:hover {
-    background-color: #cbd7f0; /* Destaque azul claro ao passar o mouse */
+    background-color: #caf0f8; /* Destaque azul claro intenso ao passar o mouse */
+    transform: scale(1.02); /* Leve zoom para destaque */
 }
 
+/* Células */
 tbody td {
     padding: 12px 15px; /* Espaçamento interno */
     text-align: center; /* Centraliza o texto */
-    color: #3f3d6d; /* Texto em roxo escuro */
+    color: #1d3557; /* Texto em azul escuro */
 }
 
 /* Estilo para links (Editar) */
 tbody td a {
     text-decoration: none; /* Remove o sublinhado */
-    color: #5b8bd6; /* Azul vibrante */
+    color: #00b4d8; /* Azul vibrante */
     font-weight: bold;
     transition: color 0.3s ease;
 }
 
 tbody td a:hover {
-    color: #7b6bcf; /* Roxo vibrante no hover */
+    color: #0077b6; /* Azul escuro no hover */
+    text-shadow: 0 0 8px rgba(0, 119, 182, 0.8); /* Efeito brilhante */
 }
 
-/* Ajustes visuais para o container geral da tabela */
+/* Borda externa da tabela */
 table {
-    border: 2px solid #a3c2f5; /* Borda azul clara */
+    border: 3px solid #90e0ef; /* Borda azul claro */
 }
+
+/* Ajuste dos cantos */
+table,
+th,
+td {
+    border-radius: 15px; /* Bordas arredondadas */
+}
+
 
 /*!* Responsividade *!*/
 /*@media (max-width: 768px) {*/
@@ -498,7 +500,7 @@ table {
 
 .conteudo_funcionario:hover,
 .conteudo_produto:hover,
-.conteudo_categoria:hover{
+.conteudo_categoria:hover {
     transition: transform 0.5s, box-shadow 0.3s; /* Transição suave para efeitos */
     transform: scale(1.03); /* Leve efeito de escala para interatividade */
     background-color: #5b8bd6;
@@ -688,8 +690,6 @@ body {
 }
 
 
-
-
 /*.conteudo, .container_dash_consulta {*/
 /*    background: #ffffff; !* Fundo branco para um visual limpo e formal *!*/
 /*    text-align: start;*/
@@ -843,3 +843,52 @@ body {
 /*    color: white; !* Texto branco *!*/
 /*    margin-right: 20px;*/
 /*    margin-left: 10px; !* Espaço entre ícones *!*/
+
+
+
+.dashboard_grafico {
+  position: relative;
+  text-align: left;
+  margin-top: 20px;
+}
+
+
+.dashboard_grafico h1 {
+  font-size: 19px;
+  color: #d3b3ff;
+  margin-top: 8px;
+  text-align: left;
+}
+
+.flashes {
+    list-style-type: none;
+    padding: 0;
+    margin: 1em 0;
+    font-family: 'Arial Black', sans-serif;
+}
+
+.flashes .error {
+    color: #FF0000; /* Vermelho vibrante */
+    background-color: #FFEDED; /* Fundo suave */
+    border: 2px solid #FF4C4C; /* Borda forte */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.flashes .success {
+    color: #008000; /* Verde vibrante */
+    background-color: #E8FFE8; /* Fundo suave */
+    border: 2px solid #32CD32; /* Borda forte */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.flashes li {
+    font-size: 1.2em; /* Fonte maior para mais impacto */
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase; /* Letras maiúsculas */
+}
+
