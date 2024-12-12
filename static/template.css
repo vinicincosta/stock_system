@@ -845,19 +845,18 @@ body {
 /*    margin-left: 10px; !* Espaço entre ícones *!*/
 
 
-
 .dashboard_grafico {
-  position: relative;
-  text-align: left;
-  margin-top: 20px;
+    position: relative;
+    text-align: left;
+    margin-top: 20px;
 }
 
 
 .dashboard_grafico h1 {
-  font-size: 19px;
-  color: #d3b3ff;
-  margin-top: 8px;
-  text-align: left;
+    font-size: 19px;
+    color: #d3b3ff;
+    margin-top: 8px;
+    text-align: left;
 }
 
 .flashes {
@@ -892,3 +891,128 @@ body {
     text-transform: uppercase; /* Letras maiúsculas */
 }
 
+<
+!
+DOCTYPE html >
+
+<
+html lang
+
+=
+"en"
+>
+
+<
+head >
+
+<
+meta charset
+
+=
+"UTF-8"
+>
+
+<
+meta name
+
+=
+"viewport"
+content
+
+=
+"width=device-width, initial-scale=1.0"
+>
+
+<
+title > Suporte
+
+-
+Stock System
+
+<
+/
+title >
+
+<
+style >
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1e1e2f;
+}
+
+.saudacao {
+    font-size: 26px; /* Aumenta o tamanho do texto */
+    font-weight: bold; /* Torna o texto mais forte */
+    text-align: center;
+    color: white; /* Texto branco */
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #4B0082, #1E90FF); /* Gradiente azul e roxo */
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%; /* Ocupa mais espaço horizontalmente */
+    margin: 20px auto; /* Centraliza horizontalmente e ajusta a margem */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.5s, background-color 0.5s;
+}
+
+.saudacao:hover {
+    transform: scale(1.03); /* Efeito de aumento ao passar o mouse */
+    background-color: #33334d; /* Cor de fundo preta ao passar o mouse */
+}
+
+.saudacao h3 {
+    margin: 0 0 10px;
+}
+
+.saudacao p {
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.highlight {
+    color: #FFD700;
+    font-weight: bold;
+}
+
+.contact-info {
+    background-color: #2a2a3b;
+    color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+
+.contact-info strong {
+    color: #1E90FF;
+}
+
+.duvida {
+    max-width: 40%; /* Reduz a largura da imagem */
+    height: auto;
+    border: 4px solid rebeccapurple; /* Bordas roxas */
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    margin: 20px 0 20px 20px; /* Ajusta as margens para afastar da borda direita */
+    display: block;
+    transition: transform 0.5s;
+    text-align: center;
+    float: right; /* Alinha a imagem à direita */
+}
+
+.duvida:hover {
+    transform: scale(1.05); /* Efeito de aumento ao passar o mouse */
+}
+
+.important {
+    background-color: #FF6F61;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    display: inline-block;
+    margin: 10px 0;
+}

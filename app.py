@@ -105,22 +105,28 @@ def registrar():
         CNPJ = request.form['CNPJ']
 
         if verificar_email_cnpj(email, CNPJ, telefone):
-            flash('Email ou CNPJ ja existente', 'error')
-            return redirect(url_for('login'), )
+            flash('Email ou CNPJ já existente', 'error')
+            return redirect(url_for('login'))
         else:
             try:
                 if not nome or not email or not senha:
-                    flash('preecher todos os campos', 'error')
+                    flash('Preencher todos os campos', 'error')
                 else:
-                    usuario = Usuario(nome=nome, email=email, senha=senha,
-                                      telefone=telefone, CNPJ=CNPJ, admin=False, status=False)
+                    usuario = Usuario(
+                        nome=nome,
+                        email=email,
+                        senha=senha,
+                        telefone=telefone,
+                        CNPJ=CNPJ,
+                        admin=True,  # Aqui o usuário será registrado como admin
+                        status=False
+                    )
                     db_session.add(usuario)
                     db_session.commit()
-                    flash('Usuario cadastrado com sucesso', 'error')
+                    flash('Usuário cadastrado com sucesso', 'success')
                     return redirect(url_for('login'))
             except IntegrityError:
-
-                flash('erro')
+                flash('Erro ao cadastrar usuário', 'error')
 
     return render_template("registrar.html")
 
@@ -296,7 +302,7 @@ def editar_funcionario(id_funcionario):
 
                 # salva os dados alterados
                 funcionario_resultado.save()
-                flash("funcionÃ¡rio atualizado com sucesso!", "sucess")
+                flash("funcionário atualizado com sucesso!", "sucess")
                 return redirect(url_for('funcionario'))
             except Exception:
                 flash(f"Erro {Exception}", "error")
